@@ -2,10 +2,13 @@
 [![Coverage report](https://gitlab.gnome.org/GNOME/gnome-control-center/badges/master/coverage.svg)](https://gnome.pages.gitlab.gnome.org/gnome-control-center/)
 [![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.gnome.org/GNOME/gnome-control-center/blob/master/COPYING)
 
-GNOME Settings
+GCC modified
 ====================
 
-GNOME Settings is GNOME's main interface for configuration of various aspects of your desktop.
+This is modified build of ubuntu's GNOME Settings.
+
+## Screenshot:
+![gcc](screenshot/gcc-modified.png)
 
 ## Contributing
 
