@@ -9,7 +9,7 @@ This is modified build of ubuntu's GNOME Settings.
 
 ## Demo:
 
-![![Settings: appearance + dock](https://img.youtube.com/vi/j45J2jKk560/0.jpg)](https://www.youtube.com/watch?v=j45J2jKk560 "Settings: appearance + dock")
+[![Settings: appearance + dock](https://img.youtube.com/vi/j45J2jKk560/0.jpg)](https://www.youtube.com/watch?v=j45J2jKk560 "Settings: appearance + dock")
 
 ## Screenshot:
 ![gcc](screenshot/gcc-modified.png)
