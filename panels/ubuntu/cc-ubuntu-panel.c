@@ -691,6 +691,8 @@ get_dock_click_for_direction (CcUbuntuPanel *self,
         click = "previews";
       else if (g_str_equal (click, "focus-or-previews"))
         click = "focus-or-previews";
+      else if (g_str_equal (click, "quit"))
+        click = "quit";
     }
 
   return click;

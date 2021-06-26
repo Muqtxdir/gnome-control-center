@@ -414,14 +414,15 @@
                                         <property name="margin_end">20</property>
                                         <property name="valign">center</property>
                                         <items>
-                                          <item id="skip" translatable="yes" context="Position on screen for the Ubuntu dock">Raise window</item>
-                                          <item id="minimize" translatable="yes" context="Position on screen for the Ubuntu dock">Minimize</item>
-                                          <item id="launch" translatable="yes" context="Position on screen for the Ubuntu dock">Launch new instance</item>
-                                          <item id="cycle-windows" translatable="yes" context="Position on screen for the Ubuntu dock">Cycle through windows</item>
-                                          <item id="minimize-or-overview" translatable="yes" context="Position on screen for the Ubuntu dock">Minimize or overview</item>
-                                          <item id="previews" translatable="yes" context="Position on screen for the Ubuntu dock">Show window previews</item>
-                                          <item id="minimize-or-previews" translatable="yes" context="Position on screen for the Ubuntu dock">Minimize or show previews</item>
-                                          <item id="focus-or-previews" translatable="yes" context="Position on screen for the Ubuntu dock">Focus or show previews</item>
+                                          <item id="skip" translatable="yes" context="Behavior when clicking on app-icon">Raise window</item>
+                                          <item id="minimize" translatable="yes" context="Behavior when clicking on app-icon">Minimize</item>
+                                          <item id="launch" translatable="yes" context="Behavior when clicking on app-icon">Launch new instance</item>
+                                          <item id="cycle-windows" translatable="yes" context="Behavior when clicking on app-icon">Cycle through windows</item>
+                                          <item id="minimize-or-overview" translatable="yes" context="Behavior when clicking on app-icon">Minimize or overview</item>
+                                          <item id="previews" translatable="yes" context="Behavior when clicking on app-icon">Show window previews</item>
+                                          <item id="minimize-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Minimize or show previews</item>
+                                          <item id="focus-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Focus or show previews</item>
+                                          <item id="quit" translatable="yes" context="Behavior when clicking on app-icon">Quit</item>
                                         </items>
                                       </object>
                                     </child>
