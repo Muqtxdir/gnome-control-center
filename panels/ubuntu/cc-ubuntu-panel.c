@@ -436,33 +436,22 @@ static void
 on_interface_settings_changed (CcUbuntuPanel *self)
 {
   g_autofree gchar *gtk_theme = NULL;
-  g_autofree gchar *shell_theme = NULL;
   g_autofree gchar *cursor_theme = NULL;
   g_autofree gchar *icon_theme = NULL;
   GtkFlowBoxChild *theme_item = NULL;
 
   gtk_theme = g_settings_get_string (self->interface_settings, GTK_THEME_KEY);
-  shell_theme = g_settings_get_string (self->shell_settings, SHELL_THEME_KEY);
   cursor_theme = g_settings_get_string (self->interface_settings, CURSOR_THEME_KEY);
   icon_theme = g_settings_get_string (self->interface_settings, ICON_THEME_KEY);
 
   if (g_str_equal (cursor_theme, "Yaru") && g_str_equal (icon_theme, "Yaru"))
     {
       if (g_strcmp0 (gtk_theme, "Yaru") == 0)
-      {
-        if (g_strcmp0 (shell_theme, "Yaru-light") == 0)
         theme_item = self->theme_standard;
-       }
       else if (g_strcmp0 (gtk_theme, "Yaru-light") == 0)
-      {
-        if (g_strcmp0 (shell_theme, "Yaru-light") == 0)
         theme_item = self->theme_light;
-      }
-      else if (g_strcmp0 (gtk_theme, "Yaru-dark") == 0)
-      {
-        if (g_strcmp0 (shell_theme, "Yaru") == 0)
+      else if (g_strcmp0 (gtk_theme, "Yaru-dark") == 0)  
         theme_item = self->theme_dark;
-      }  
     }
 
   if (theme_item != NULL)
@@ -729,6 +718,7 @@ static void
 cc_ubuntu_panel_init (CcUbuntuPanel *self)
 {
   g_autoptr(GSettingsSchema) schema = NULL;
+  g_autoptr(GSettingsSchema) shellschema = NULL;
 
   g_resources_register (cc_ubuntu_get_resource ());
 
@@ -742,10 +732,6 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   g_signal_connect_object (self->interface_settings, "changed::" CURSOR_THEME_KEY,
                            G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (self->interface_settings, "changed::" ICON_THEME_KEY,
-                           G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
-                           
-  self->shell_settings = g_settings_new (SHELL_SCHEMA);
-  g_signal_connect_object (self->shell_settings, "changed::" SHELL_THEME_KEY,
                            G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
 
   /* Only load if we have ubuntu dock or dash to dock installed */
@@ -810,6 +796,16 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   g_signal_connect (self, "map", G_CALLBACK (mapped_cb), NULL);
 
   g_bus_get (G_BUS_TYPE_SESSION, NULL, session_bus_ready, self);
+  
+  shellschema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), SHELL_SCHEMA, TRUE);
+  if (!shellschema)
+    {
+      g_warning ("No user-theme is installed globally. Please install gnome-shell-extension-user-theme.");
+      return;
+    }                         
+  self->shell_settings = g_settings_new (SHELL_SCHEMA);
+  g_signal_connect_object (self->shell_settings, "changed::" SHELL_THEME_KEY,
+                           G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
 }
 
 void
