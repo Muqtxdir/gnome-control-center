@@ -804,8 +804,6 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
       return;
     }                         
   self->shell_settings = g_settings_new (SHELL_SCHEMA);
-  g_signal_connect_object (self->shell_settings, "changed::" SHELL_THEME_KEY,
-                           G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
 }
 
 void
