@@ -2,8 +2,5 @@
 <gresources>
   <gresource prefix="/org/gnome/control-center/ubuntu">
     <file preprocess="xml-stripblanks">cc-ubuntu-panel.ui</file>
-    <file>theme-dark.svg</file>
-    <file>theme-light.svg</file>
-    <file>theme-standard.svg</file>
   </gresource>
 </gresources>

@@ -39,12 +39,11 @@ typedef enum
 #define CC_TYPE_POWER_PROFILE_ROW (cc_power_profile_row_get_type())
 G_DECLARE_FINAL_TYPE (CcPowerProfileRow, cc_power_profile_row, CC, POWER_PROFILE_ROW, GtkListBoxRow)
 
-GtkWidget *cc_power_profile_row_new                   (CcPowerProfile  power_profile,
-                                                       const char     *performance_inhibited);
+CcPowerProfileRow *cc_power_profile_row_new           (CcPowerProfile  power_profile);
 CcPowerProfile cc_power_profile_row_get_profile       (CcPowerProfileRow *row);
 GtkRadioButton *cc_power_profile_row_get_radio_button (CcPowerProfileRow *row);
 void cc_power_profile_row_set_active                  (CcPowerProfileRow *row, gboolean active);
-gboolean cc_power_profile_row_get_active              (CcPowerProfileRow *self);
+gboolean cc_power_profile_row_get_active              (CcPowerProfileRow *row);
 void cc_power_profile_row_set_performance_inhibited   (CcPowerProfileRow *row,
                                                        const char        *performance_inhibited);
 

@@ -2,21 +2,10 @@
 [![Coverage report](https://gitlab.gnome.org/GNOME/gnome-control-center/badges/master/coverage.svg)](https://gnome.pages.gitlab.gnome.org/gnome-control-center/)
 [![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.gnome.org/GNOME/gnome-control-center/blob/master/COPYING)
 
-GCC modified
+GNOME Settings
 ====================
 
-This is modified build of ubuntu's GNOME Settings.
-
-## Demo:
-
-[![Settings: appearance + dock](https://img.youtube.com/vi/j45J2jKk560/0.jpg)](https://www.youtube.com/watch?v=j45J2jKk560 "Settings: appearance + dock")
-
-## Screenshots:
-### Light
-![gcc](screenshot/gcc-modified-light.png)
-
-### Dark
-![gcc-dark](screenshot/gcc-modified-dark.png)
+GNOME Settings is GNOME's main interface for configuration of various aspects of your desktop.
 
 ## Contributing
 

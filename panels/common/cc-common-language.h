@@ -50,8 +50,6 @@ GHashTable *cc_common_language_get_initial_languages   (void);
 GHashTable *cc_common_language_get_user_languages      (void);
 GHashTable *cc_common_language_get_initial_regions     (const gchar *lang);
 
-gboolean cc_common_language_maybe_install           (guint32 xid,  const gchar *lang, gboolean force);
-
 void     cc_common_language_setup_list              (GtkWidget    *treeview,
 						     GHashTable   *users,
 						     GHashTable   *initial);

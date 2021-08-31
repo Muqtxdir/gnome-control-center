@@ -19,10 +19,7 @@ i18n.merge_file(
 
 sources = files('cc-ubuntu-panel.c')
 
-resource_data = files('cc-ubuntu-panel.ui',
-                      'theme-dark.svg',
-                      'theme-light.svg',
-                      'theme-standard.svg')
+resource_data = files('cc-ubuntu-panel.ui',)
 
 sources += gnome.compile_resources(
   'cc-' + cappletname + '-resources',
@@ -41,3 +38,5 @@ panels_libs += static_library(
   dependencies: common_deps,
   c_args: cflags
 )
+
+subdir('icons')

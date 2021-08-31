@@ -19,6 +19,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <float.h>
 #include <handy.h>
 #include <glib/gi18n.h>
 #include <math.h>
@@ -209,11 +210,12 @@ sort_modes_by_area_desc (CcDisplayMode *a, CcDisplayMode *b)
   cc_display_mode_get_resolution (a, &wa, &ha);
   cc_display_mode_get_resolution (b, &wb, &hb);
 
-  /* Prefer wide screen if the size is equal */
-  res = wb*hb - wa*ha;
-  if (res == 0)
-    return wb - wa;
-  return res;
+  /* Sort first by width, then height.
+   * We used to sort by area, but that can be confusing. */
+  res = wb - wa;
+  if (res)
+    return res;
+  return hb - ha;
 }
 
 static gint
@@ -221,6 +223,71 @@ sort_modes_by_freq_desc (CcDisplayMode *a, CcDisplayMode *b)
 {
   double delta = (cc_display_mode_get_freq_f (b) - cc_display_mode_get_freq_f (a))*1000.;
   return delta;
+}
+
+static gint
+compare_scales (gdouble *a, gdouble *b)
+{
+  return *a - *b;
+}
+
+static GArray *
+get_supported_scales (CcDisplaySettings *self,
+                      CcDisplayMode     *mode)
+{
+  const double *scales = cc_display_mode_get_supported_scales (mode);
+  GArray *supported_scales = g_array_new (TRUE, TRUE, sizeof (double));
+  int i;
+
+  for (i = 0; scales[i] != 0.0; i++)
+    {
+      if (!cc_display_config_is_scaled_mode_valid (self->config, mode, scales[i]))
+        continue;
+
+      g_array_append_val (supported_scales, scales[i]);
+    }
+
+  /* This is should be always true, but let's not trust mutter too much! */
+  g_array_sort (supported_scales, (GCompareFunc) compare_scales);
+
+  if (supported_scales->len > MAX_SCALE_BUTTONS)
+    {
+      double current_scale = cc_display_monitor_get_scale (self->selected_output);
+      int current_index = 0;
+
+      /* Too many values, let's remove all the ones around the current one */
+      for (i = supported_scales->len - 1; i > 0; i--)
+        {
+          double val = g_array_index (supported_scales, double, i);
+
+          if (G_APPROX_VALUE (current_scale, val, DBL_EPSILON))
+            {
+              current_index = i;
+              break;
+            }
+        }
+
+      for (i = supported_scales->len - 1; i > current_index + MAX_SCALE_BUTTONS / 2; i--)
+        {
+          g_array_remove_index (supported_scales, i);
+
+          if (supported_scales->len <= MAX_SCALE_BUTTONS)
+            return supported_scales;
+        }
+
+      if (current_index > MAX_SCALE_BUTTONS / 2)
+        {
+          for (i = 0; i < current_index;)
+            {
+              g_array_remove_index (supported_scales, i);
+
+              if (supported_scales->len <= MAX_SCALE_BUTTONS)
+                return supported_scales;
+            }
+        }
+    }
+
+  return supported_scales;
 }
 
 static gboolean
@@ -232,6 +299,7 @@ cc_display_settings_rebuild_ui (CcDisplaySettings *self)
   CcDisplayMode *current_mode;
   GtkRadioButton *group = NULL;
   gint buttons = 0;
+  g_autoptr(GArray) supported_scales = NULL;
   const gdouble *scales, *scale;
 
   self->idle_udpate_id = 0;
@@ -391,7 +459,9 @@ cc_display_settings_rebuild_ui (CcDisplaySettings *self)
 
   /* Scale row is usually shown. */
   gtk_container_foreach (GTK_CONTAINER (self->scale_bbox), (GtkCallback) gtk_widget_destroy, NULL);
-  scales = cc_display_mode_get_supported_scales (current_mode);
+  supported_scales = get_supported_scales (self, current_mode);
+  scales = (const double *) supported_scales->data;
+
   for (scale = scales; *scale != 0.0; scale++)
     {
       g_autofree gchar *scale_str = NULL;

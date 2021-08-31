@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0 0 16 16"
+   id="svg12"
+   sodipodi:docname="schedule-dark-theme-symbolic.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs16">
+    <linearGradient
+       id="linearGradient1664-5-6-3-3"
+       gradientUnits="userSpaceOnUse"
+       x1="178.16689"
+       x2="-13.92912"
+       y1="137.53882"
+       y2="128.91682">
+      <stop
+         offset="0"
+         stop-color="#5995e8"
+         id="stop23-0-1-7-0" />
+      <stop
+         offset="1"
+         stop-color="#63a0e6"
+         stop-opacity=".01"
+         id="stop25-3-5-4-7" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="true"
+     inkscape:zoom="47.0226"
+     inkscape:cx="8.6979452"
+     inkscape:cy="7.7515918"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12">
+    <inkscape:grid
+       type="xygrid"
+       id="grid18" />
+  </sodipodi:namedview>
+  <path
+     id="path1262"
+     style="fill:#808080;fill-opacity:1;stroke-width:0.762808"
+     d="M 8 1 A 7 7 0 0 0 1 8 A 7 7 0 0 0 8 15 A 7 7 0 0 0 15 8 A 7 7 0 0 0 8 1 z M 8 2 A 6 6 0 0 1 14 8 A 6 6 0 0 1 8 14 L 8 11 A 3 3 0 0 1 5 8 A 3 3 0 0 1 8 5 L 8 2 z M 8 5 L 8 11 A 3 3 0 0 0 11 8 A 3 3 0 0 0 8 5 z " />
+</svg>

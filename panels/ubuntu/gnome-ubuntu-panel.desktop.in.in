@@ -1,16 +1,16 @@
 [Desktop Entry]
-Name=Appearance
-Comment=Appearance Settings
+Name=Dock
+Comment=Ubuntu Dock Settings
 Exec=gnome-control-center ubuntu
-Icon=preferences-ubuntu-panel
+Icon=org.gnome.Settings-ubuntudock-symbolic
 Terminal=false
 Type=Application
 NoDisplay=true
 StartupNotify=true
-Categories=GNOME;GTK;Settings;DesktopSettings;X-GNOME-Settings-Panel;X-GNOME-PersonalSettings;X-GNOME-PersonalizationSettings;
+Categories=GNOME;GTK;Settings;DesktopSettings;X-GNOME-Settings-Panel;X-GNOME-PersonalSettings;X-GNOME-CustomizationSettings;
 OnlyShowIn=ubuntu;
 X-GNOME-Bugzilla-Bugzilla=GNOME
 X-GNOME-Bugzilla-Product=gnome-control-center
 X-GNOME-Bugzilla-Version=@VERSION@
 # Translators: those are keywords for the ubuntu control-center panel
-Keywords=Dock;Launcher;Theme;
+Keywords=Dock;Launcher;

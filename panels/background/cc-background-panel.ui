@@ -13,8 +13,6 @@
         <child>
           <object class="HdyClamp">
             <property name="visible">1</property>
-            <property name="maximum_size">300</property>
-            <property name="tightening_threshold">200</property>
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
