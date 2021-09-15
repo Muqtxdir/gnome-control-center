@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Appearance
-Comment=Appearance Settings
+Name=General
+Comment=General Settings
 Exec=gnome-control-center ubuntugeneral
-Icon=preferences-ubuntu-general-panel
+Icon=tweaks-app
 Terminal=false
 Type=Application
 NoDisplay=true

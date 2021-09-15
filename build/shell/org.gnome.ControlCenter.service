@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.gnome.ControlCenter
+Exec=/usr/local/bin/gnome-control-center

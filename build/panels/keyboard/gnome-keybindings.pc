@@ -1,0 +1,10 @@
+prefix=/usr/local
+datarootdir=/usr/local/share
+datadir=/usr/local/share
+pkgdatadir=${datadir}/gnome-control-center
+keysdir=${pkgdatadir}/keybindings
+
+Name: gnome-keybindings
+Description: Keybindings configuration for GNOME applications
+Version: 40.0
+

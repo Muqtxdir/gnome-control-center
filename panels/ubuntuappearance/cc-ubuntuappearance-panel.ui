@@ -5,123 +5,140 @@
     <child>
       <object class="HdyPreferencesPage">
         <property name="visible">True</property>
+            <!-- Ubuntu Appearance -->
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">true</property>
+            <property name="title" translatable="yes">Window colors</property>
+            <child>
+              <object class="GtkFLowBox" id="theme_box">
+                <property name="visible">True</property>
+                <property name="homogeneous">True</property>
+                <property name="max-children-per-line">2</property>
+                <property name="min-children-per-line">2</property>
+                <property name="halign">start</property>
+                <property name="column-spacing">20</property>
+                <signal name="selected-children-changed" handler="on_theme_box_selected_children_changed" object="CcUbuntuAppearancePanel" swapped="yes"/>
+                <child>
+                  <object class="GtkFlowBoxChild" id="theme_default">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="margin">8</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-default.png</property>
+                            <style>
+                              <class name="content-view"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-top">12</property>
+                            <property name="label" translatable="yes" context="Yaru theme in use">Light</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">12</property>
+                            <property name="label" translatable="yes">All is light, All is bright</property>
+                            <property name="halign">center</property>
+                            <attributes>
+                              <attribute name="scale" value="0.9"/>
+                            </attributes>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="view"/>
+                      <class name="frame"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkFlowBoxChild" id="theme_dark">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="margin">8</property>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-dark.png</property>
+                            <style>
+                              <class name="content-view"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <property name="margin-top">12</property>
+                            <property name="label" translatable="yes" context="Yaru theme in use">Dark</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">12</property>
+                            <property name="label" translatable="yes">Hello darkness, My old friend</property>
+                            <property name="halign">center</property>
+                            <attributes>
+                              <attribute name="scale" value="0.9"/>
+                            </attributes>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="view"/>
+                      <class name="frame"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>                  
+          </object>
+        </child>
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <!-- Ubuntu Appearance -->
+            <property name="title" translatable="yes">Font Accesibility</property>
             <child>
-              <object class="HdyPreferencesGroup">
+              <object class="HdyActionRow">
                 <property name="visible">true</property>
-                <property name="title" translatable="yes">Choose your look</property>     
+                <property name="title" translatable="yes">Dyslexia-friendly text</property>
+                <property name="subtitle" translatable="yes">Enabling OpenDyslexic can help improve legibility and reading speed</property>
+                <property name="activatable-widget">dyslexia_friendly_switch</property>
+                <property name="use-underline">true</property>
                 <child>
-                  <object class="GtkFLowBox" id="theme_box">
-                    <property name="visible">True</property>
-                    <property name="homogeneous">True</property>
-                    <property name="max-children-per-line">2</property>
-                    <property name="min-children-per-line">2</property>
-                    <property name="halign">start</property>
-                    <property name="column-spacing">20</property>
-                    <signal name="selected-children-changed" handler="on_theme_box_selected_children_changed" object="CcUbuntuAppearancePanel" swapped="yes"/>
-                    <child>
-                      <object class="GtkFlowBoxChild" id="theme_default">
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="margin">8</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-default.svg</property>
-                                <style>
-                                  <class name="content-view"/>
-                                </style>
-                              </object>
-                           </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-top">8</property>
-                                <property name="label" translatable="yes" context="Yaru theme in use">Light</property>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                </attributes>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="margin-top">4</property>
-                                <property name="margin-bottom">6</property>
-                                <property name="label" translatable="yes">Everything is light and bright.</property>
-                                <property name="halign">center</property>
-                                <attributes>
-                                  <attribute name="scale" value="0.9"/>
-                                </attributes>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="view"/>
-                          <class name="frame"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkFlowBoxChild" id="theme_dark">
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="margin">8</property>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-dark.svg</property>
-                                <style>
-                                  <class name="content-view"/>
-                                </style>
-                              </object>
-                           </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="halign">center</property>
-                                <property name="valign">center</property>
-                                <property name="margin-top">8</property>
-                                <property name="label" translatable="yes" context="Yaru theme in use">Dark</property>
-                                <attributes>
-                                  <attribute name="weight" value="bold"/>
-                                </attributes>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="margin-top">4</property>
-                                <property name="margin-bottom">6</property>
-                                <property name="label" translatable="yes">Hello darkness, my old friend.</property>
-                                <property name="halign">center</property>
-                                <attributes>
-                                  <attribute name="scale" value="0.9"/>
-                                </attributes>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <style>
-                          <class name="view"/>
-                          <class name="frame"/>
-                        </style>
-                      </object>
-                    </child>
+                  <object class="GtkSwitch" id="dyslexia_friendly_switch">
+                    <property name="visible">1</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
                   </object>
-                </child>                  
+                </child>
               </object>
             </child>
           </object>

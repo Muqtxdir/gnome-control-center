@@ -35,6 +35,14 @@
 #define GTK_THEME_KEY "gtk-theme"
 #define CURSOR_THEME_KEY "cursor-theme"
 #define ICON_THEME_KEY "icon-theme"
+#define FONT_KEY "font-name"
+#define UBUNTU_THEME "Yaru"
+#define UBUNTU_DARK_THEME "Yaru-dark"
+#define DOCUMENT_FONT_KEY "document-font-name"
+#define MONOSPACE_FONT_KEY "monospace-font-name"
+#define OD_REG_FONT "OpenDyslexic Regular 10"
+#define OD_DOC_FONT "OpenDyslexic Regular 11"
+#define OD_MON_FONT "OpenDyslexicMono Regular 11"
 
 #define GEDIT_PREFRENCES_SCHEMA "org.gnome.gedit.preferences.editor"
 #define GEDIT_THEME_KEY "scheme"
@@ -42,6 +50,7 @@
 struct _CcUbuntuAppearancePanel {
   CcPanel                 parent_instance;
 
+  GtkSwitch              *dyslexia_friendly_switch;
   GtkFlowBox             *theme_box;
   GtkFlowBoxChild        *theme_dark;
   GtkFlowBoxChild        *theme_default;
@@ -64,6 +73,49 @@ cc_ubuntuappearance_panel_dispose (GObject *object)
   G_OBJECT_CLASS (cc_ubuntuappearance_panel_parent_class)->dispose (object);
 }
 
+static gboolean
+get_dyslexia_friendly_mapping (GValue   *value,
+                               GVariant *variant,
+                               gpointer  user_data)
+{
+  const char *font;
+  gboolean dfs;
+
+  font = g_variant_get_string (variant, NULL);
+  dfs = (g_strcmp0 (font, OD_REG_FONT) == 0);
+  g_value_set_boolean (value, dfs);
+
+  return TRUE;
+}
+
+static GVariant *
+set_dyslexia_friendly_mapping (const GValue       *value,
+                               const GVariantType *expected_type,
+                               gpointer            user_data)
+{
+  gboolean dfs;
+  CcUbuntuAppearancePanel *self = user_data;
+  GVariant *ret = NULL;
+
+  dfs = g_value_get_boolean (value);
+  if (dfs)
+    {
+      ret = g_variant_new_string (OD_REG_FONT);
+      g_settings_set_string (self->interface_settings, FONT_KEY, OD_REG_FONT);
+      g_settings_set_string (self->interface_settings, DOCUMENT_FONT_KEY, OD_DOC_FONT);
+      g_settings_set_string (self->interface_settings, MONOSPACE_FONT_KEY, OD_MON_FONT);
+    }
+  else
+    {
+      g_settings_reset (self->interface_settings, FONT_KEY);
+      g_settings_reset (self->interface_settings, DOCUMENT_FONT_KEY);
+      g_settings_reset (self->interface_settings, MONOSPACE_FONT_KEY);
+    }
+
+  return ret;
+}
+
+
 static void
 on_theme_box_selected_children_changed (CcUbuntuAppearancePanel *self)
 {
@@ -77,13 +129,13 @@ on_theme_box_selected_children_changed (CcUbuntuAppearancePanel *self)
       GtkFlowBoxChild *selected_item = GTK_FLOW_BOX_CHILD (g_list_nth_data (selected, 0));
       if (selected_item == self->theme_default)
       {
-        gtk_theme = "Yaru";
-        gedit_theme = "Yaru";
+        gtk_theme = UBUNTU_THEME;
+        gedit_theme = UBUNTU_THEME;
       }
       else if (selected_item == self->theme_dark)
       {
-        gtk_theme = "Yaru-dark";
-        gedit_theme = "Yaru-dark";
+        gtk_theme = UBUNTU_DARK_THEME;
+        gedit_theme = UBUNTU_DARK_THEME;
       }
     }
 
@@ -105,11 +157,11 @@ on_interface_settings_changed (CcUbuntuAppearancePanel *self)
   cursor_theme = g_settings_get_string (self->interface_settings, CURSOR_THEME_KEY);
   icon_theme = g_settings_get_string (self->interface_settings, ICON_THEME_KEY);
 
-  if (g_str_equal (cursor_theme, "Yaru") && g_str_equal (icon_theme, "Yaru"))
+  if (g_str_equal (cursor_theme, UBUNTU_THEME) && g_str_equal (icon_theme, UBUNTU_THEME))
     {
-      if (g_strcmp0 (gtk_theme, "Yaru") == 0)
+      if (g_strcmp0 (gtk_theme, UBUNTU_THEME) == 0)
         theme_item = self->theme_default;
-      else if (g_strcmp0 (gtk_theme, "Yaru-dark") == 0)
+      else if (g_strcmp0 (gtk_theme, UBUNTU_DARK_THEME) == 0)
         theme_item = self->theme_dark;
     }
 
@@ -129,6 +181,7 @@ cc_ubuntuappearance_panel_class_init (CcUbuntuAppearancePanelClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/control-center/ubuntuappearance/cc-ubuntuappearance-panel.ui");
 
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, dyslexia_friendly_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_box);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_dark);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_default);
@@ -155,6 +208,13 @@ cc_ubuntuappearance_panel_init (CcUbuntuAppearancePanel *self)
   self->gedit_settings = g_settings_new (GEDIT_PREFRENCES_SCHEMA);
   g_signal_connect_object (self->gedit_settings, "changed::" GEDIT_THEME_KEY,
                            G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
+  g_settings_bind_with_mapping (self->interface_settings, FONT_KEY,
+                                self->dyslexia_friendly_switch,
+                                "active", G_SETTINGS_BIND_DEFAULT,
+                                get_dyslexia_friendly_mapping,
+                                set_dyslexia_friendly_mapping,
+                                self,
+                                NULL);
 
   
   on_interface_settings_changed (self);

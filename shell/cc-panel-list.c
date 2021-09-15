@@ -409,8 +409,8 @@ static const gchar * const panel_order[] = {
   "sharing",
 
   /* Customization page */
+  "ubuntugeneral",
   "ubuntuappearance",
-  "ubuntudesktop",
   "ubuntu",
   
   /* Privacy page */

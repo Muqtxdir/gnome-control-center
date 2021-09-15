@@ -28,7 +28,7 @@ panels = [
   'sound',
   'ubuntu',
   'ubuntuappearance',
-  'ubuntudesktop',
+  'ubuntugeneral',
   'universal-access',
   'usage',
   'user-accounts'

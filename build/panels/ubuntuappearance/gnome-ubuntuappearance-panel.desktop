@@ -1,0 +1,26 @@
+[Desktop Entry]
+Name[be@latin]=Vyhlad
+Name[dz]=འབྱུང་སྣང་
+Name[en@shaw]=𐑩𐑐𐑽𐑩𐑯𐑕
+Name[ka]=გარემოს იერსახე
+Name[mai]=प्रकटन
+Name[nds]=utsehn
+Name[nn]=Utsjånad
+Name[sq]=Paraqitja
+Name[uz]=Tashqi koʻrinishi
+Name[uz@cyrillic]=Ташқи кўриниши
+Name=Appearance
+Comment=Appearance Settings
+Exec=gnome-control-center ubuntuappearance
+Icon=org.gnome.Settings-ubuntuappearance-symbolic
+Terminal=false
+Type=Application
+NoDisplay=true
+StartupNotify=true
+Categories=GNOME;GTK;Settings;DesktopSettings;X-GNOME-Settings-Panel;X-GNOME-PersonalSettings;X-GNOME-CustomizationSettings;
+OnlyShowIn=ubuntu;
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=gnome-control-center
+X-GNOME-Bugzilla-Version=40.0
+# Translators: those are keywords for the ubuntu control-center panel
+Keywords=Theme;

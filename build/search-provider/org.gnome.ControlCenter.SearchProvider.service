@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=org.gnome.ControlCenter.SearchProvider
+Exec=/usr/local/libexec/gnome-control-center-search-provider
