@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=Dock
+Name=Ubuntu Pro
 Comment=Ubuntu Dock Settings
 Exec=gnome-control-center ubuntu
-Icon=org.gnome.Settings-ubuntudock-symbolic
+Icon=start-here-symbolic
 Terminal=false
 Type=Application
 NoDisplay=true

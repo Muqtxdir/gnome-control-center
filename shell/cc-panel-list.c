@@ -399,7 +399,6 @@ static const gchar * const panel_order[] = {
   "mobile-broadband",
   "bluetooth",
   "background",
-  "customization",
   "notifications",
   "search",
   "multitasking",
@@ -411,6 +410,11 @@ static const gchar * const panel_order[] = {
   /* Customization page */
   "ubuntugeneral",
   "ubuntuappearance",
+  "background",
+  "notifications",
+  "search",
+  "multitasking",
+  "applications",
   "ubuntu",
   
   /* Privacy page */
@@ -441,6 +445,7 @@ static const gchar * const panel_order[] = {
   "reset-settings",
   "datetime",
   "info-overview",
+  "customization",
 };
 
 static guint

@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=General
+Name=Developer Options
 Comment=General Settings
 Exec=gnome-control-center ubuntugeneral
-Icon=tweaks-app
+Icon=extensions-symbolic
 Terminal=false
 Type=Application
 NoDisplay=true

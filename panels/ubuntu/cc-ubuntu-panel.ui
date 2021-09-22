@@ -8,17 +8,26 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
+            <property name="title" translatable="yes">Token settings</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="HdyExpanderRow">
                 <property name="visible">true</property>
-                <property name="title" translatable="yes">Enable dock</property>
-                <property name="activatable-widget">dock_switch</property>
-                <property name="use-underline">true</property>
+                <property name="title" translatable="yes">Ubuntu Pro subsciption attached</property>
                 <child>
-                  <object class="GtkSwitch" id="dock_switch">
-                    <property name="visible">1</property>
-                    <property name="halign">end</property>
-                    <property name="valign">center</property>
+                  <object class="HdyActionRow">
+                    <property name="title" translatable="yes">ID:  ABCD-EFGH-IJKL-MNOP</property>
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="visible">true</property>
+                        <property name="valign">center</property>
+                        <property name="label" translatable="yes">Detach this machine</property>
+                        <property name="use_underline">1</property>
+                        <style>
+                          <class name="destructive-action"/>
+                        </style>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -29,7 +38,7 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Visibility</property>
+            <property name="title" translatable="yes">Services</property>
             <child>
               <object class="GtkListBox" id="dock_general_listbox">
                 <property name="visible">1</property>
@@ -38,12 +47,13 @@
                 <child>
                   <object class="HdyActionRow">
                     <property name="visible">true</property>
-                    <property name="title" translatable="yes">Auto-hide the dock</property>
-                    <property name="subtitle" translatable="yes">The dock hides when any windows overlap with it.</property>
+                    <property name="title" translatable="yes">Extended Security Maintainence</property>
+                    <property name="subtitle" translatable="yes">Enable security updates for over 30,000 Ubuntu packages.</property>
                     <property name="activatable-widget">dock_autohide_switch</property>
                     <property name="use-underline">true</property>
                     <child>
                       <object class="GtkSwitch" id="dock_autohide_switch">
+                        <property name="margin_end">32</property>
                         <property name="visible">1</property>
                         <property name="halign">end</property>
                         <property name="valign">center</property>
@@ -52,17 +62,22 @@
                   </object>
                 </child>
                 <child>
-                  <object class="HdyActionRow">
+                  <object class="HdyExpanderRow">
                     <property name="visible">true</property>
-                    <property name="title" translatable="yes">Panel mode</property>
-                    <property name="subtitle" translatable="yes">The dock extends to the edges of the screen.</property>
-                    <property name="activatable-widget">dock_extendheight_switch</property>
-                    <property name="use-underline">true</property>
+                    <property name="title" translatable="yes">Livepatch</property>
+                     <property name="show_enable_switch">True</property>
+                    <property name="subtitle" translatable="yes">Keep your sytem secure by applying updates that don't require a restart</property>
                     <child>
-                      <object class="GtkSwitch" id="dock_extendheight_switch">
-                        <property name="visible">1</property>
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
+                      <object class="HdyActionRow">
+                        <property name="visible">True</property>
+                        <property name="title" translatable="yes">Show Livepatch status in the top bar</property>
+                        <child type="prefix">
+                          <object class="GtkCheckButton">
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="visible">True</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
@@ -74,156 +89,93 @@
             </child>
           </object>
         </child>
+        
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Behavior</property>
-              <child>
-                <object class="GtkListBox" id="dock_behavior_listbox">
-                  <property name="visible">true</property>
-                  <property name="can-focus">1</property>
-                  <property name="selection-mode">none</property>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Click action</property>
-                      <property name="subtitle" translatable="yes">Behavior when clicking on app-icon.</property>
-                      <property name="activatable-widget">dock_clickaction_combo</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkComboBoxText" id="dock_clickaction_combo">
-                          <property name="visible">1</property>
-                          <property name="valign">center</property>
-                          <property name="entry_text_column">0</property>
-                          <items>
-                            <item id="focus-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Default</item>
-                            <item id="minimize" translatable="yes" context="Behavior when clicking on app-icon">Minimize</item>
-                            <item id="cycle-windows" translatable="yes" context="Behavior when clicking on app-icon">Cycle through windows</item>
-                            <item id="minimize-or-overview" translatable="yes" context="Behavior when clicking on app-icon">Minimize or overview</item>
-                            <item id="previews" translatable="yes" context="Behavior when clicking on app-icon">Show window previews</item>
-                            <item id="minimize-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Minimize or show previews</item>
-                          </items>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Scroll action</property>
-                      <property name="subtitle" translatable="yes">Behavior when scrolling on an open app-icon.</property>
-                      <property name="activatable-widget">dock_scrollaction_combo</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkComboBoxText" id="dock_scrollaction_combo">
-                          <property name="visible">1</property>
-                          <property name="valign">center</property>
-                          <property name="entry_text_column">0</property>
-                          <items>
-                            <item id="switch-workspace" translatable="yes" context="Behavior when srolling on app-icon">Default</item>
-                            <item id="cycle-windows" translatable="yes" context="Behavior when scrolling on app-icon">Cycle through windows</item>
-                            <item id="do-nothing" translatable="yes" context="Behavior when scolling on app-icon">None</item>
-                          </items>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <style>
-                    <class name="content"/>
-                  </style>
-                </object>
-              </child>
-          </object>
-        </child>
-        <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Position and Size</property>
+            <property name="title" translatable="yes">Compilance and Hardening</property>
+            <property name="description" translatable="yes">Please read the documentation and only enable these settings if you specifically require this specifications</property>
               <child>
                 <object class="GtkListBox" id="dock_position_listbox">
                   <property name="visible">true</property>
                   <property name="can-focus">1</property>
                   <property name="selection-mode">none</property>
                   <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Icon size</property>
-                      <property name="activatable-widget">icon_size_scale</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkScale" id="icon_size_scale">
-                          <property name="visible">True</property>
-                          <property name="adjustment">icon_size_adjustment</property>
-                          <property name="orientation">horizontal</property>
-                          <property name="value_pos">left</property>
-                          <property name="width_request">300</property>
-                          <property name="valign">center</property>
-                          <signal name="format-value" handler="on_icon_size_format_value" object="CcUbuntuPanel" swapped="yes"/>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Position on screen</property>
-                      <property name="activatable-widget">dock_position_combo</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkComboBoxText" id="dock_position_combo">
-                          <property name="visible">1</property>
-                          <property name="valign">center</property>
-                          <property name="entry_text_column">0</property>
-                          <items>
-                            <item id="LEFT" translatable="yes" context="Position on screen for the Ubuntu dock">Left</item>
-                            <item id="BOTTOM" translatable="yes" context="Position on screen for the Ubuntu dock">Bottom</item>
-                            <item id="RIGHT" translatable="yes" context="Position on screen for the Ubuntu dock">Right</item>
-                          </items>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="GtkListBoxRow" id="dock_monitor_row">
-                      <property name="visible">True</property>
-                      <child>
-                        <object class="GtkBox">
-                          <property name="visible">True</property>
-                          <property name="orientation">horizontal</property>
-                          <property name="spacing">50</property>
-                          <child>
-                            <object class="GtkLabel">
-                              <property name="visible">True</property>
-                              <property name="label" translatable="yes">Show on</property>
-                              <property name="hexpand">True</property>
-                              <property name="halign">start</property>
-                              <property name="margin_start">12</property>
-                              <property name="margin_end">12</property>
-                              <property name="margin_top">16</property>
-                              <property name="margin_bottom">16</property>
-                              <property name="mnemonic_widget">dock_placement_combo</property>
-                            </object>
-                          </child>
-                          <child>
-                            <object class="GtkComboBox" id="dock_placement_combo">
-                              <property name="visible">True</property>
-                              <property name="model">dock_placement_liststore</property>
-                              <property name="margin_start">20</property>
-                              <property name="margin_end">12</property>
-                              <property name="valign">center</property>
-                              <signal name="changed" handler="on_dock_placement_combo_changed" object="CcUbuntuPanel" swapped="yes"/>
-                              <child>
-                                <object class="GtkCellRendererText"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
-                              </child>
-                            </object>
-                          </child>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
+                   <object class="HdyExpanderRow">
+                     <property name="title" translatable="yes">FIPS 140-2 Level 1</property>
+                     <property name="visible">True</property>
+                     <child>
+                       <object class="GtkListBoxRow">
+                         <property name="activatable">False</property>
+                         <property name="visible">True</property>
+                         <child>
+                           <object class="GtkLabel">
+                             <property name="label" translatable="yes">Hello, world!</property>
+                             <property name="margin">12</property>
+                             <property name="visible">True</property>
+                           </object>
+                         </child>
+                       </object>
+                     </child>
+                   </object>
+                 </child>
+                 <child>
+                   <object class="HdyExpanderRow">
+                     <property name="title" translatable="yes">FIPS updates</property>
+                     <property name="visible">True</property>
+                     <child>
+                       <object class="GtkListBoxRow">
+                         <property name="activatable">False</property>
+                         <property name="visible">True</property>
+                         <child>
+                           <object class="GtkLabel">
+                             <property name="label" translatable="yes">Hello, world!</property>
+                             <property name="margin">12</property>
+                             <property name="visible">True</property>
+                           </object>
+                         </child>
+                       </object>
+                     </child>
+                   </object>
+                 </child>
+                 <child>
+                   <object class="HdyExpanderRow">
+                     <property name="title" translatable="yes">CC-EAL2</property>
+                     <property name="visible">True</property>
+                     <child>
+                       <object class="GtkListBoxRow">
+                         <property name="activatable">False</property>
+                         <property name="visible">True</property>
+                         <child>
+                           <object class="GtkLabel">
+                             <property name="label" translatable="yes">Hello, world!</property>
+                             <property name="margin">12</property>
+                             <property name="visible">True</property>
+                           </object>
+                         </child>
+                       </object>
+                     </child>
+                   </object>
+                 </child>
+                 <child>
+                   <object class="HdyExpanderRow">
+                     <property name="title" translatable="yes">CIS Tools</property>
+                     <property name="visible">True</property>
+                     <child>
+                       <object class="GtkListBoxRow">
+                         <property name="activatable">False</property>
+                         <property name="visible">True</property>
+                         <child>
+                           <object class="GtkLabel">
+                             <property name="label" translatable="yes">Hello, world!</property>
+                             <property name="margin">12</property>
+                             <property name="visible">True</property>
+                           </object>
+                         </child>
+                       </object>
+                     </child>
+                   </object>
+                 </child>
                   <style>
                     <class name="content"/>
                   </style>
@@ -231,67 +183,7 @@
               </child>
           </object>
         </child>
-        <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Options</property>
-              <child>
-                <object class="GtkListBox" id="dock_launcher_listbox">
-                  <property name="visible">true</property>
-                  <property name="can-focus">1</property>
-                  <property name="selection-mode">none</property>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Move applications button at the beginning of the dock</property>
-                      <property name="activatable-widget">dock_movetop_switch</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkSwitch" id="dock_movetop_switch">
-                          <property name="visible">true</property>
-                          <property name="halign">end</property>
-                          <property name="valign">center</property>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Show mounted volumes and devices</property>
-                      <property name="activatable-widget">dock_showmounted_switch</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkSwitch" id="dock_showmounted_switch">
-                          <property name="visible">true</property>
-                          <property name="halign">end</property>
-                          <property name="valign">center</property>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Show trash can</property>
-                      <property name="activatable-widget">dock_showtrash_switch</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkSwitch" id="dock_showtrash_switch">
-                          <property name="visible">true</property>
-                          <property name="halign">end</property>
-                          <property name="valign">center</property>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <style>
-                    <class name="content"/>
-                  </style>
-                </object>
-              </child>
-          </object>
-        </child>
+        
       </object>
     </child>
   </template>
