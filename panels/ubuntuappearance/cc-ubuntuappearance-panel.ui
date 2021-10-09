@@ -17,7 +17,7 @@
                 <property name="max-children-per-line">2</property>
                 <property name="min-children-per-line">2</property>
                 <property name="halign">start</property>
-                <property name="column-spacing">20</property>
+                <property name="column-spacing">18</property>
                 <signal name="selected-children-changed" handler="on_theme_box_selected_children_changed" object="CcUbuntuAppearancePanel" swapped="yes"/>
                 <child>
                   <object class="GtkFlowBoxChild" id="theme_default">
@@ -26,46 +26,55 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
-                        <property name="margin">8</property>
+                        <property name="margin">2</property>
                         <child>
-                          <object class="GtkImage">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-default.png</property>
-                            <style>
-                              <class name="content-view"/>
-                            </style>
+                            <property name="orientation">vertical</property>
+                            <property name="margin">6</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-default.png</property>
+                                <style>
+                                  <class name="icon-dropshadow"/>
+                                  <class name="content-view"/>
+                                  <class name="frame"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="halign">center</property>
+                                <property name="valign">center</property>
+                                <property name="margin-top">8</property>
+                                <property name="label" translatable="yes" context="Yaru theme in use">Light</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="margin-top">6</property>
+                                <property name="margin-bottom">8</property>
+                                <property name="label" translatable="yes">All is light, All is bright</property>
+                                <property name="halign">center</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.9"/>
+                                </attributes>
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
                         </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-top">12</property>
-                            <property name="label" translatable="yes" context="Yaru theme in use">Light</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="margin-top">6</property>
-                            <property name="margin-bottom">12</property>
-                            <property name="label" translatable="yes">All is light, All is bright</property>
-                            <property name="halign">center</property>
-                            <attributes>
-                              <attribute name="scale" value="0.9"/>
-                            </attributes>
-                          </object>
-                        </child>
+                        <style>
+                          <class name="view"/>
+                          <class name="frame"/>
+                        </style>
                       </object>
                     </child>
-                    <style>
-                      <class name="view"/>
-                      <class name="frame"/>
-                    </style>
                   </object>
                 </child>
                 <child>
@@ -75,46 +84,55 @@
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
-                        <property name="margin">8</property>
+                        <property name="margin">2</property>
                         <child>
-                          <object class="GtkImage">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-dark.png</property>
-                            <style>
-                              <class name="content-view"/>
-                            </style>
+                            <property name="orientation">vertical</property>
+                            <property name="margin">6</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-dark.png</property>
+                                <style>
+                                  <class name="icon-dropshadow"/>
+                                  <class name="content-view"/>
+                                  <class name="frame"/>
+                                </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="halign">center</property>
+                                <property name="valign">center</property>
+                                <property name="margin-top">8</property>
+                                <property name="label" translatable="yes" context="Yaru theme in use">Dark</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="margin-top">6</property>
+                                <property name="margin-bottom">8</property>
+                                <property name="label" translatable="yes">Hello darkness, My old friend</property>
+                                <property name="halign">center</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.9"/>
+                                </attributes>
+                                <style>
+                                  <class name="dim-label"/>
+                                </style>
+                              </object>
+                            </child>
                           </object>
                         </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="halign">center</property>
-                            <property name="valign">center</property>
-                            <property name="margin-top">12</property>
-                            <property name="label" translatable="yes" context="Yaru theme in use">Dark</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="margin-top">6</property>
-                            <property name="margin-bottom">12</property>
-                            <property name="label" translatable="yes">Hello darkness, My old friend</property>
-                            <property name="halign">center</property>
-                            <attributes>
-                              <attribute name="scale" value="0.9"/>
-                            </attributes>
-                          </object>
-                        </child>
+                        <style>
+                          <class name="view"/>
+                          <class name="frame"/>
+                        </style>
                       </object>
                     </child>
-                    <style>
-                      <class name="view"/>
-                      <class name="frame"/>
-                    </style>
                   </object>
                 </child>
               </object>

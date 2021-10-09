@@ -40,9 +40,6 @@
 #define DEFAULT_ICONSIZE 48.0
 #define ICONSIZE_KEY "dash-max-icon-size"
 
-#define SHELL_SCHEMA "org.gnome.shell"
-#define ENABLED_EXTENSIONS "enabled-extensions"
-
 #define UBUNTU_DOCK_SCHEMA "org.gnome.shell.extensions.dash-to-dock"
 #define UBUNTU_DOCK_ALL_MONITORS_KEY "multi-monitor"
 #define UBUNTU_DOCK_ON_MONITOR_KEY "preferred-monitor"
@@ -50,12 +47,11 @@
 struct _CcUbuntuPanel {
   CcPanel                 parent_instance;
 
-  GtkSwitch              *dock_switch;
   GtkSwitch              *dock_autohide_switch;
   GtkSwitch              *dock_extendheight_switch;
-  GtkSwitch              *dock_showmounted_switch;
-  GtkSwitch              *dock_showtrash_switch;
-  GtkSwitch              *dock_movetop_switch;
+  GtkCheckButton         *dock_showmounted_button;
+  GtkCheckButton         *dock_showtrash_button;
+  GtkCheckButton         *dock_movetop_button;
   GtkListBoxRow          *dock_monitor_row;
   GtkListBox             *dock_general_listbox;
   GtkListBox             *dock_behavior_listbox;
@@ -69,7 +65,6 @@ struct _CcUbuntuPanel {
   GtkAdjustment          *icon_size_adjustment;
   GtkScale               *icon_size_scale;
 
-  GSettings              *shell_settings;
   GSettings              *dock_settings;
   CcDisplayConfigManager *display_config_manager;
   GDBusProxy             *shell_proxy;
@@ -87,56 +82,11 @@ cc_ubuntu_panel_dispose (GObject *object)
 
   monitor_labeler_hide (self);
 
-  g_clear_object (&self->shell_settings);
   g_clear_object (&self->dock_settings);
   g_clear_object (&self->display_config_manager);
   g_clear_object (&self->shell_proxy);
 
   G_OBJECT_CLASS (cc_ubuntu_panel_parent_class)->dispose (object);
-}
-
-static gboolean
-get_dock_state (GValue   *value,
-                GVariant *variant,
-                gpointer  user_data)
-{
-  const char *enabled_extensions;
-  gboolean dock_state;
-
-  enabled_extensions = g_variant_get_string (variant,NULL);
-  dock_state = (g_strcmp0 (enabled_extensions, " ENABLED") == 0);
-  g_value_set_boolean (value, dock_state);
-
-  return TRUE;
-}
-
-static GVariant *
-set_dock_state (const GValue       *value,
-                const GVariantType *expected_type,
-                gpointer            user_data)
-{
-  gboolean dock_state;
-  CcUbuntuPanel *self = user_data;
-  gchar *commandline = NULL;
-  gchar *commandline2 = NULL;
-  GVariant *ret = NULL;
-
-  dock_state = g_value_get_boolean (value);
-  if (dock_state)
-    {
-      commandline2 = g_strdup_printf ("gnome-extensions info ubuntu-dock@ubuntu.com | tail -1 | cut -d : -f 2");
-      ret = g_variant_new_string (commandline2); 
-      commandline = g_printf ("gnome-extensions enable ubuntu-dock@ubuntu.com");
-      g_spawn_command_line_async (commandline, NULL);
-      g_free (commandline);
-      
-    }
-  else
-    {
-      commandline = g_strdup_printf ("gnome-extensions disable ubuntu-dock@ubuntu.com");
-      g_spawn_command_line_async (commandline, NULL);
-      g_free (commandline);
-    }
 }
 
 static void
@@ -547,12 +497,11 @@ cc_ubuntu_panel_class_init (CcUbuntuPanelClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/control-center/ubuntu/cc-ubuntu-panel.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_autohide_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_extendheight_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showmounted_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showtrash_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_movetop_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showmounted_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showtrash_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_movetop_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_general_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_behavior_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_launcher_listbox);
@@ -636,15 +585,6 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   g_resources_register (cc_ubuntu_get_resource ());
 
   gtk_widget_init_template (GTK_WIDGET (self));
-  
-  self->shell_settings = g_settings_new ("org.gnome.shell");
-  g_settings_bind_with_mapping (self->shell_settings, ENABLED_EXTENSIONS,
-                                self->dock_switch,
-                                "active", G_SETTINGS_BIND_DEFAULT,
-                                get_dock_state,
-                                set_dock_state,
-                                self,
-                                NULL);
 
   /* Only load if we have ubuntu dock or dash to dock installed */
   schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UBUNTU_DOCK_SCHEMA, TRUE);
@@ -679,13 +619,13 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
                    self->dock_extendheight_switch, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "show-mounts",
-                   self->dock_showmounted_switch, "active",
+                   self->dock_showmounted_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "show-trash",
-                   self->dock_showtrash_switch, "active",
+                   self->dock_showtrash_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "show-apps-at-top",
-                   self->dock_movetop_switch, "active",
+                   self->dock_movetop_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
 
   /* Icon size change - we halve the sizes so we can only get even values */

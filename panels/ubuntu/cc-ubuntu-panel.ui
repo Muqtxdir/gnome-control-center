@@ -5,26 +5,6 @@
     <child>
       <object class="HdyPreferencesPage">
         <property name="visible">True</property>
-        <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <child>
-              <object class="HdyActionRow">
-                <property name="visible">true</property>
-                <property name="title" translatable="yes">Enable dock</property>
-                <property name="activatable-widget">dock_switch</property>
-                <property name="use-underline">true</property>
-                <child>
-                  <object class="GtkSwitch" id="dock_switch">
-                    <property name="visible">1</property>
-                    <property name="halign">end</property>
-                    <property name="valign">center</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
         <!-- Ubuntu Dock -->
         <child>
           <object class="HdyPreferencesGroup">
@@ -55,7 +35,7 @@
                   <object class="HdyActionRow">
                     <property name="visible">true</property>
                     <property name="title" translatable="yes">Panel mode</property>
-                    <property name="subtitle" translatable="yes">The dock extends to the edges of the screen.</property>
+                    <property name="subtitle" translatable="yes">The dock extends to the screen edge.</property>
                     <property name="activatable-widget">dock_extendheight_switch</property>
                     <property name="use-underline">true</property>
                     <child>
@@ -184,41 +164,22 @@
                     </object>
                   </child>
                   <child>
-                    <object class="GtkListBoxRow" id="dock_monitor_row">
+                    <object class="HdyActionRow" id="dock_monitor_row">
                       <property name="visible">True</property>
+                      <property name="title" translatable="yes">Show on</property>
+                      <property name="activatable-widget">dock_placement_combo</property>
+                      <property name="use-underline">true</property>
                       <child>
-                        <object class="GtkBox">
+                        <object class="GtkComboBox" id="dock_placement_combo">
                           <property name="visible">True</property>
-                          <property name="orientation">horizontal</property>
-                          <property name="spacing">50</property>
+                          <property name="model">dock_placement_liststore</property>
+                          <property name="valign">center</property>
+                          <signal name="changed" handler="on_dock_placement_combo_changed" object="CcUbuntuPanel" swapped="yes"/>
                           <child>
-                            <object class="GtkLabel">
-                              <property name="visible">True</property>
-                              <property name="label" translatable="yes">Show on</property>
-                              <property name="hexpand">True</property>
-                              <property name="halign">start</property>
-                              <property name="margin_start">12</property>
-                              <property name="margin_end">12</property>
-                              <property name="margin_top">16</property>
-                              <property name="margin_bottom">16</property>
-                              <property name="mnemonic_widget">dock_placement_combo</property>
-                            </object>
-                          </child>
-                          <child>
-                            <object class="GtkComboBox" id="dock_placement_combo">
-                              <property name="visible">True</property>
-                              <property name="model">dock_placement_liststore</property>
-                              <property name="margin_start">20</property>
-                              <property name="margin_end">12</property>
-                              <property name="valign">center</property>
-                              <signal name="changed" handler="on_dock_placement_combo_changed" object="CcUbuntuPanel" swapped="yes"/>
-                              <child>
-                                <object class="GtkCellRendererText"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
-                              </child>
-                            </object>
+                            <object class="GtkCellRendererText"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
                           </child>
                         </object>
                       </child>
@@ -241,50 +202,52 @@
                   <property name="can-focus">1</property>
                   <property name="selection-mode">none</property>
                   <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Move applications button at the beginning of the dock</property>
-                      <property name="activatable-widget">dock_movetop_switch</property>
-                      <property name="use-underline">true</property>
+                    <object class="GtkGrid">
+                      <property name="visible">1</property>
+                      <property name="row_homogeneous">1</property>
+                      <property name="margin">12</property>
+                      <property name="column_spacing">18</property>
+                      <property name="row_spacing">6</property>
                       <child>
-                        <object class="GtkSwitch" id="dock_movetop_switch">
-                          <property name="visible">true</property>
-                          <property name="halign">end</property>
-                          <property name="valign">center</property>
+                        <object class="GtkCheckButton" id="dock_movetop_button">
+                          <property name="label" translatable="yes">Move applications button at the beginning of the dock</property>
+                          <property name="visible">1</property>
+                          <property name="can_focus">1</property>
+                          <property name="active">1</property>
                         </object>
+                        <packing>
+                          <property name="left_attach">0</property>
+                          <property name="top_attach">0</property>
+                        </packing>
+                      </child>
+                      <child>
+                        <object class="GtkCheckButton" id="dock_showmounted_button">
+                          <property name="label" translatable="yes">Show mounted volumes and devices</property>
+                          <property name="visible">1</property>
+                          <property name="can_focus">1</property>
+                        </object>
+                        <packing>
+                          <property name="left_attach">0</property>
+                          <property name="top_attach">1</property>
+                        </packing>
+                      </child>
+                      <child>
+                        <object class="GtkCheckButton" id="dock_showtrash_button">
+                          <property name="label" translatable="yes">Show trash can</property>
+                          <property name="visible">1</property>
+                          <property name="can_focus">1</property>
+                        </object>
+                        <packing>
+                          <property name="left_attach">0</property>
+                          <property name="top_attach">2</property>
+                        </packing>
                       </child>
                     </object>
+                    <packing>
+                      <property name="fill">0</property>
+                    </packing>
                   </child>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Show mounted volumes and devices</property>
-                      <property name="activatable-widget">dock_showmounted_switch</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkSwitch" id="dock_showmounted_switch">
-                          <property name="visible">true</property>
-                          <property name="halign">end</property>
-                          <property name="valign">center</property>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="HdyActionRow">
-                      <property name="visible">true</property>
-                      <property name="title" translatable="yes">Show trash can</property>
-                      <property name="activatable-widget">dock_showtrash_switch</property>
-                      <property name="use-underline">true</property>
-                      <child>
-                        <object class="GtkSwitch" id="dock_showtrash_switch">
-                          <property name="visible">true</property>
-                          <property name="halign">end</property>
-                          <property name="valign">center</property>
-                        </object>
-                      </child>
-                    </object>
-                  </child>
+                        
                   <style>
                     <class name="content"/>
                   </style>
