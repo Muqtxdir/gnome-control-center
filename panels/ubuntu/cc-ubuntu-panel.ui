@@ -202,15 +202,31 @@
                   <property name="can-focus">1</property>
                   <property name="selection-mode">none</property>
                   <child>
+                    <object class="HdyActionRow">
+                      <property name="visible">true</property>
+                      <property name="title" translatable="yes">Show applications button</property>
+                      <property name="activatable-widget">dock_show_apps_switch</property>
+                      <property name="use-underline">true</property>
+                      <child>
+                        <object class="GtkSwitch" id="dock_show_apps_switch">
+                          <property name="visible">1</property>
+                          <property name="halign">end</property>
+                          <property name="valign">center</property>
+                        </object>
+                      </child>
+                    </object>
+                  </child>
+                  <child>
                     <object class="GtkGrid">
                       <property name="visible">1</property>
                       <property name="row_homogeneous">1</property>
                       <property name="margin">12</property>
                       <property name="column_spacing">18</property>
-                      <property name="row_spacing">6</property>
+                      <property name="row_spacing">12</property>
                       <child>
                         <object class="GtkCheckButton" id="dock_movetop_button">
                           <property name="label" translatable="yes">Move applications button at the beginning of the dock</property>
+                          <property name="sensitive" bind-source="dock_show_apps_switch" bind-property="active" bind-flags="default|sync-create" />
                           <property name="visible">1</property>
                           <property name="can_focus">1</property>
                           <property name="active">1</property>

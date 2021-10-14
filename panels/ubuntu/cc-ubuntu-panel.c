@@ -51,7 +51,8 @@ struct _CcUbuntuPanel {
   GtkSwitch              *dock_extendheight_switch;
   GtkCheckButton         *dock_showmounted_button;
   GtkCheckButton         *dock_showtrash_button;
-  GtkCheckButton         *dock_movetop_button;
+  GtkSwitch              *dock_show_apps_switch;
+  GtkSwitch              *dock_movetop_button;
   GtkListBoxRow          *dock_monitor_row;
   GtkListBox             *dock_general_listbox;
   GtkListBox             *dock_behavior_listbox;
@@ -501,6 +502,7 @@ cc_ubuntu_panel_class_init (CcUbuntuPanelClass *klass)
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_extendheight_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showmounted_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showtrash_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_show_apps_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_movetop_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_general_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_behavior_listbox);
@@ -623,6 +625,9 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "show-trash",
                    self->dock_showtrash_button, "active",
+                   G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind (self->dock_settings, "show-show-apps-button",
+                   self->dock_show_apps_switch, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "show-apps-at-top",
                    self->dock_movetop_button, "active",
