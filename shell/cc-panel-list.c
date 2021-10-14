@@ -402,7 +402,6 @@ static const gchar * const panel_order[] = {
   "customization",
   "notifications",
   "search",
-  "multitasking",
   "applications",
   "privacy",
   "online-accounts",
@@ -412,6 +411,7 @@ static const gchar * const panel_order[] = {
   "ubuntugeneral",
   "ubuntuappearance",
   "ubuntu",
+  "multitasking",
   
   /* Privacy page */
   "location",
