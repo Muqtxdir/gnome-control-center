@@ -153,23 +153,7 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">true</property>
-                <property name="title" translatable="yes">Dyslexia-friendly text</property>
-                <property name="subtitle" translatable="yes">Enabling OpenDyslexic can help improve legibility and reading speed</property>
-                <property name="activatable-widget">dyslexia_friendly_switch</property>
-                <property name="use-underline">true</property>
-                <child>
-                  <object class="GtkSwitch" id="dyslexia_friendly_switch">
-                    <property name="visible">1</property>
-                    <property name="halign">end</property>
-                    <property name="valign">center</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="visible">true</property>
-                <property name="title" translatable="yes">Text Size</property>
+                <property name="title" translatable="yes">Text size</property>
                 <property name="activatable-widget">text_size_scale</property>
                 <property name="use-underline">true</property>
                 <child>
@@ -200,6 +184,22 @@
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="icon_name">font-size-large-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">true</property>
+                <property name="title" translatable="yes">Dyslexia-friendly text</property>
+                <property name="subtitle" translatable="yes">OpenDyslexic can help improve legibility and reading speed</property>
+                <property name="activatable-widget">dyslexia_friendly_switch</property>
+                <property name="use-underline">true</property>
+                <child>
+                  <object class="GtkSwitch" id="dyslexia_friendly_switch">
+                    <property name="visible">1</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
                   </object>
                 </child>
               </object>
