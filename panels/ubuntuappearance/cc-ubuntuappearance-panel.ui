@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkAdjustment" id="text_scaling_factor_adjustment">
+    <property name="lower">0.75</property>
+    <property name="upper">1.5</property>
+    <property name="value">1.0</property>
+    <property name="step_increment">0.25</property>
+    <property name="page_increment">0.25</property>
+  </object>
   <template class="CcUbuntuAppearancePanel" parent="CcPanel">
     <property name="visible">True</property>
     <child>
@@ -142,7 +149,7 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Font Accesibility</property>
+            <property name="title" translatable="yes">Font</property>
             <child>
               <object class="HdyActionRow">
                 <property name="visible">true</property>
@@ -155,6 +162,44 @@
                     <property name="visible">1</property>
                     <property name="halign">end</property>
                     <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">true</property>
+                <property name="title" translatable="yes">Text Size</property>
+                <property name="activatable-widget">text_size_scale</property>
+                <property name="use-underline">true</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon_name">font-size-small-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScale" id="text_size_scale">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="adjustment">text_scaling_factor_adjustment</property>
+                    <property name="draw_value">False</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="value_pos">left</property>
+                    <property name="width_request">200</property>
+                    <property name="valign">center</property>
+                    <marks>
+                      <mark value="0.75"/>
+                      <mark value="1.0"/>
+                      <mark value="1.25"/>
+                      <mark value="1.5"/>
+                    </marks>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="icon_name">font-size-large-symbolic</property>
                   </object>
                 </child>
               </object>

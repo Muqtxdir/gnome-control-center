@@ -9,7 +9,7 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Visibility</property>
+            <property name="title" translatable="yes">Visibility</property>
             <child>
               <object class="GtkListBox" id="dock_general_listbox">
                 <property name="visible">1</property>
@@ -57,7 +57,7 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Behavior</property>
+            <property name="title" translatable="yes">Behavior</property>
               <child>
                 <object class="GtkListBox" id="dock_behavior_listbox">
                   <property name="visible">true</property>
@@ -118,7 +118,7 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Position and Size</property>
+            <property name="title" translatable="yes">Position and Size</property>
               <child>
                 <object class="GtkListBox" id="dock_position_listbox">
                   <property name="visible">true</property>
@@ -195,7 +195,7 @@
         <child>
           <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="title" translatable="yes">Dock Options</property>
+            <property name="title" translatable="yes">Other</property>
               <child>
                 <object class="GtkListBox" id="dock_launcher_listbox">
                   <property name="visible">true</property>

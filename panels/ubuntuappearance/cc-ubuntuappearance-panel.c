@@ -43,6 +43,7 @@
 #define OD_REG_FONT "OpenDyslexic Regular 10"
 #define OD_DOC_FONT "OpenDyslexic Regular 11"
 #define OD_MON_FONT "OpenDyslexicMono Regular 11"
+#define KEY_TEXT_SCALING_FACTOR "text-scaling-factor"
 
 #define GEDIT_PREFRENCES_SCHEMA "org.gnome.gedit.preferences.editor"
 #define GEDIT_THEME_KEY "scheme"
@@ -50,13 +51,14 @@
 struct _CcUbuntuAppearancePanel {
   CcPanel                 parent_instance;
 
-  GtkSwitch              *dyslexia_friendly_switch;
-  GtkFlowBox             *theme_box;
-  GtkFlowBoxChild        *theme_dark;
-  GtkFlowBoxChild        *theme_default;
+  GtkSwitch         *dyslexia_friendly_switch;
+  GtkFlowBox        *theme_box;
+  GtkFlowBoxChild   *theme_dark;
+  GtkFlowBoxChild   *theme_default;
+  GtkScale          *text_size_scale;
 
-  GSettings              *interface_settings;
-  GSettings              *gedit_settings;
+  GSettings         *interface_settings;
+  GSettings         *gedit_settings;
   
 };
 
@@ -114,8 +116,6 @@ set_dyslexia_friendly_mapping (const GValue       *value,
 
   return ret;
 }
-
-
 static void
 on_theme_box_selected_children_changed (CcUbuntuAppearancePanel *self)
 {
@@ -185,6 +185,7 @@ cc_ubuntuappearance_panel_class_init (CcUbuntuAppearancePanelClass *klass)
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_box);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_dark);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_default);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, text_size_scale);
 
   gtk_widget_class_bind_template_callback (widget_class, on_theme_box_selected_children_changed);
 }
@@ -215,8 +216,10 @@ cc_ubuntuappearance_panel_init (CcUbuntuAppearancePanel *self)
                                 set_dyslexia_friendly_mapping,
                                 self,
                                 NULL);
+  g_settings_bind (self->interface_settings, "text-scaling-factor",
+                   gtk_range_get_adjustment (GTK_RANGE (self->text_size_scale)), "value",
+                   G_SETTINGS_BIND_DEFAULT);
 
-  
   on_interface_settings_changed (self);
 }
 
