@@ -190,7 +190,7 @@
                     <property name="valign">center</property>
                     <marks>
                       <mark value="0.75"/>
-                      <mark value="1.0"/>
+                      <mark value="1.0" translatable="yes"> •</mark>
                       <mark value="1.25"/>
                       <mark value="1.5"/>
                     </marks>
