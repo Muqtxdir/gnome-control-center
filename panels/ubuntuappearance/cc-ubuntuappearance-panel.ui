@@ -151,39 +151,53 @@
             <property name="visible">True</property>
             <property name="title" translatable="yes">Font</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">true</property>
+              <object class="HdyExpanderRow">
                 <property name="title" translatable="yes">Text size</property>
-                <property name="activatable-widget">text_size_scale</property>
-                <property name="use-underline">true</property>
-                <child>
-                  <object class="GtkImage">
+                <property name="visible">True</property>
+                <child type="action">
+                  <object class="GtkLabel" id="text_size_label">
                     <property name="visible">True</property>
-                    <property name="icon_name">font-size-small-symbolic</property>
+                    <property name="can_focus">False</property>
+                    <property name="label">24 pixels</property>
+                    <property name="xalign">1</property>
+                    <style>
+                      <class name="dim-label"/>
+                    </style>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkScale" id="text_size_scale">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="adjustment">text_scaling_factor_adjustment</property>
-                    <property name="draw_value">False</property>
-                    <property name="orientation">horizontal</property>
-                    <property name="value_pos">left</property>
-                    <property name="width_request">200</property>
-                    <property name="valign">center</property>
-                    <marks>
-                      <mark value="0.75"/>
-                      <mark value="1.0" translatable="yes"> •</mark>
-                      <mark value="1.25"/>
-                      <mark value="1.5"/>
-                    </marks>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="icon_name">font-size-large-symbolic</property>
+                  <object class="HdyActionRow">
+                    <property name="visible">true</property>
+                    <property name="title" translatable="yes">Scaling factor</property>
+                    <property name="activatable-widget">text_size_scale</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon_name">font-size-small-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkScale" id="text_size_scale">
+                        <property name="visible">1</property>
+                        <property name="can_focus">1</property>
+                        <property name="draw_value">0</property>
+                        <property name="has_origin">0</property>
+                        <property name="adjustment">text_scaling_factor_adjustment</property>
+                        <property name="width_request">300</property>                       
+                        <marks>
+                          <mark value="0.75"/>
+                          <mark value="1.0" translatable="yes"> •</mark>
+                          <mark value="1.25"/>
+                          <mark value="1.5"/>
+                        </marks>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="icon_name">font-size-large-symbolic</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -192,7 +206,6 @@
               <object class="HdyActionRow">
                 <property name="visible">true</property>
                 <property name="title" translatable="yes">Dyslexia-friendly text</property>
-                <property name="subtitle" translatable="yes">OpenDyslexic can help improve legibility and reading speed</property>
                 <property name="activatable-widget">dyslexia_friendly_switch</property>
                 <property name="use-underline">true</property>
                 <child>

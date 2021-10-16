@@ -56,6 +56,7 @@ struct _CcUbuntuAppearancePanel {
   GtkFlowBoxChild   *theme_dark;
   GtkFlowBoxChild   *theme_default;
   GtkScale          *text_size_scale;
+  GtkLabel          *text_size_label;
 
   GSettings         *interface_settings;
   GSettings         *gedit_settings;
@@ -116,6 +117,39 @@ set_dyslexia_friendly_mapping (const GValue       *value,
 
   return ret;
 }
+
+static gboolean
+text_size_label_mapping_get (GValue   *value,
+                             GVariant *variant,
+                             gpointer  user_data)
+{
+  char *label;
+  double text_size;
+
+  text_size = g_variant_get_double (variant);
+  
+  if (text_size<1.0 && text_size>0.75)
+      label = g_strdup (("text size", "Small"));
+  else if (text_size == 0.75)
+      label = g_strdup (("text size", "Small"));
+  else if (text_size == 1.0)
+      label = g_strdup (("text size", "Default"));
+  else if (text_size<1.25 && text_size>1.0)
+      label = g_strdup (("text size", "Large"));
+  else if (text_size == 1.25)
+      label = g_strdup (("text size", "Large"));
+  else if (text_size<1.5 && text_size>1.25)
+      label = g_strdup (("text size", "Larger"));
+  else if (text_size == 1.5)
+      label = g_strdup (("text size", "Larger"));
+  else
+      label = g_strdup (("text size", "Unkown value"));
+
+  g_value_take_string (value, label);
+
+  return TRUE;
+}
+
 static void
 on_theme_box_selected_children_changed (CcUbuntuAppearancePanel *self)
 {
@@ -186,6 +220,7 @@ cc_ubuntuappearance_panel_class_init (CcUbuntuAppearancePanelClass *klass)
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_dark);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, theme_default);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, text_size_scale);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuAppearancePanel, text_size_label);
 
   gtk_widget_class_bind_template_callback (widget_class, on_theme_box_selected_children_changed);
 }
@@ -219,6 +254,11 @@ cc_ubuntuappearance_panel_init (CcUbuntuAppearancePanel *self)
   g_settings_bind (self->interface_settings, "text-scaling-factor",
                    gtk_range_get_adjustment (GTK_RANGE (self->text_size_scale)), "value",
                    G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind_with_mapping (self->interface_settings, KEY_TEXT_SCALING_FACTOR,
+                                self->text_size_label,
+                                "label", G_SETTINGS_BIND_GET,
+                                text_size_label_mapping_get,
+                                NULL, NULL, NULL);
 
   on_interface_settings_changed (self);
 }
