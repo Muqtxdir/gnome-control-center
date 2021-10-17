@@ -32,21 +32,26 @@
 #include "shell/cc-object-storage.h"
 
 #define DING_SCHEMA "org.gnome.shell.extensions.ding"
+#define JUST_PERFECTION_SCHEMA "org.gnome.shell.extensions.just-perfection"
 
 struct _CcUbuntuGeneralPanel {
   CcPanel                 parent_instance;
 
-  GtkSwitch              *ding_showhome_switch;
-  GtkSwitch              *ding_showtrash_switch;
-  GtkSwitch              *ding_shownetwork_switch;
-  GtkSwitch              *ding_showvolumes_switch;
+  GtkSwitch              *just_perfection_activities_switch;
+  GtkSwitch              *just_perfection_app_menu_switch;
+  GtkComboBoxText        *just_perfection_clock_menu_position_combo;
+  GtkCheckButton         *ding_showhome_button;
+  GtkCheckButton         *ding_showtrash_button;
+  GtkCheckButton         *ding_shownetwork_button;
+  GtkCheckButton         *ding_showvolumes_button;
   GtkSwitch              *ding_addopposite_switch;
-  GtkListBox             *ding_position_listbox;
-  GtkListBox             *ding_general_listbox;
+  GtkListBox             *ding_listbox;
+  GtkListBox             *just_perfection_listbox;
   GtkComboBoxText        *ding_icons_size_combo;
   GtkComboBoxText        *ding_icons_new_alignment_combo;
 
   GSettings              *ding_settings;
+  GSettings              *just_perfection_settings;
 };
 
 CC_PANEL_REGISTER (CcUbuntuGeneralPanel, cc_ubuntugeneral_panel);
@@ -57,6 +62,7 @@ cc_ubuntugeneral_panel_dispose (GObject *object)
   CcUbuntuGeneralPanel *self = CC_UBUNTUGENERAL_PANEL (object);
 
   g_clear_object (&self->ding_settings);
+  g_clear_object (&self->just_perfection_settings);
 
   G_OBJECT_CLASS (cc_ubuntugeneral_panel_parent_class)->dispose (object);
 }
@@ -71,13 +77,16 @@ cc_ubuntugeneral_panel_class_init (CcUbuntuGeneralPanelClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/control-center/ubuntugeneral/cc-ubuntugeneral-panel.ui");
 
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_showhome_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_showtrash_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_shownetwork_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_showvolumes_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, just_perfection_activities_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, just_perfection_app_menu_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, just_perfection_clock_menu_position_combo);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_showhome_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_showtrash_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_shownetwork_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_showvolumes_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_addopposite_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_position_listbox);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_general_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, just_perfection_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_icons_size_combo);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuGeneralPanel, ding_icons_new_alignment_combo);
 }
@@ -85,20 +94,28 @@ cc_ubuntugeneral_panel_class_init (CcUbuntuGeneralPanelClass *klass)
 static void
 cc_ubuntugeneral_panel_init (CcUbuntuGeneralPanel *self)
 {
-  g_autoptr(GSettingsSchema) schema = NULL;
+  g_autoptr(GSettingsSchema) ding_schema = NULL;
+  g_autoptr(GSettingsSchema) just_perfection_schema = NULL;
 
   g_resources_register (cc_ubuntugeneral_get_resource ());
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
   /* Only load if we have ding installed */
-  schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), DING_SCHEMA, TRUE);
-  if (!schema)
+  ding_schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), DING_SCHEMA, TRUE);
+  if (!ding_schema)
     {
       g_warning ("Ding is not installed here. Panel disabled. Please fix your installation.");
       return;
     }
-  self->ding_settings = g_settings_new_full (schema, NULL, NULL);
+  /* Only load if we have just-perfection installed */
+  just_perfection_schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), JUST_PERFECTION_SCHEMA, TRUE);
+  if (!ding_schema)
+    {
+      g_warning ("Just-Perfection is not installed here. Panel disabled. Please fix your installation.");
+      return;
+    }
+  self->ding_settings = g_settings_new_full (ding_schema, NULL, NULL);
   g_settings_bind (self->ding_settings, "icon-size",
                                 self->ding_icons_size_combo, "active-id",
                                 G_SETTINGS_BIND_DEFAULT);
@@ -106,19 +123,30 @@ cc_ubuntugeneral_panel_init (CcUbuntuGeneralPanel *self)
                                 self->ding_icons_new_alignment_combo, "active-id",
                                 G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->ding_settings, "show-home",
-                   self->ding_showhome_switch, "active",
+                   self->ding_showhome_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->ding_settings, "show-trash",
-                   self->ding_showtrash_switch, "active",
+                   self->ding_showtrash_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->ding_settings, "show-volumes",
-                   self->ding_showvolumes_switch, "active",
+                   self->ding_showvolumes_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->ding_settings, "show-network-volumes",
-                   self->ding_shownetwork_switch, "active",
+                   self->ding_shownetwork_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->ding_settings, "add-volumes-opposite",
                    self->ding_addopposite_switch, "active",
+                   G_SETTINGS_BIND_DEFAULT);
+                   
+  self->just_perfection_settings = g_settings_new_full (just_perfection_schema, NULL, NULL);
+  g_settings_bind (self->just_perfection_settings, "clock-menu-position",
+                                self->just_perfection_clock_menu_position_combo, "active",
+                                G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind (self->just_perfection_settings, "activities-button",
+                   self->just_perfection_activities_switch, "active",
+                   G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind (self->just_perfection_settings, "app-menu",
+                   self->just_perfection_app_menu_switch, "active",
                    G_SETTINGS_BIND_DEFAULT);
 }
 
