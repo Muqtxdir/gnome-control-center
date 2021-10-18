@@ -42,6 +42,7 @@
                             <child>
                               <object class="GtkImage">
                                 <property name="visible">True</property>
+                                <property name="tooltip_text" translatable="yes">All is light, All is bright</property>
                                 <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-default.png</property>
                                 <style>
                                   <class name="icon-dropshadow"/>
@@ -55,23 +56,8 @@
                                 <property name="visible">True</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
-                                <property name="margin-top">8</property>
+                                <property name="margin">8</property>
                                 <property name="label" translatable="yes" context="Yaru theme in use">Light</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="margin-top">6</property>
-                                <property name="margin-bottom">8</property>
-                                <property name="label" translatable="yes">All is light, All is bright</property>
-                                <property name="halign">center</property>
-                                <attributes>
-                                  <attribute name="scale" value="0.9"/>
-                                </attributes>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
                               </object>
                             </child>
                           </object>
@@ -100,6 +86,7 @@
                             <child>
                               <object class="GtkImage">
                                 <property name="visible">True</property>
+                                <property name="tooltip_text" translatable="yes">Hello darkness, My old friend</property>
                                 <property name="resource">/org/gnome/control-center/ubuntuappearance/assets/theme-dark.png</property>
                                 <style>
                                   <class name="icon-dropshadow"/>
@@ -113,23 +100,8 @@
                                 <property name="visible">True</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
-                                <property name="margin-top">8</property>
+                                <property name="margin">8</property>
                                 <property name="label" translatable="yes" context="Yaru theme in use">Dark</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">True</property>
-                                <property name="margin-top">6</property>
-                                <property name="margin-bottom">8</property>
-                                <property name="label" translatable="yes">Hello darkness, My old friend</property>
-                                <property name="halign">center</property>
-                                <attributes>
-                                  <attribute name="scale" value="0.9"/>
-                                </attributes>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
                               </object>
                             </child>
                           </object>
