@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/control-center/ubuntuappearance">
+    <file preprocess="xml-stripblanks">cc-ubuntuappearance-panel.ui</file>
+    <!-- Assets -->
+    <file>assets/theme-dark.png</file>
+    <file>assets/theme-default.png</file>
+  </gresource>
+</gresources>

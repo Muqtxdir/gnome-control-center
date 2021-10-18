@@ -16,6 +16,7 @@ panels = [
   'lock',
   'microphone',
   'mouse',
+  'multitasking',
   'notifications',
   'online-accounts',
   'power',
@@ -26,6 +27,8 @@ panels = [
   'sharing',
   'sound',
   'ubuntu',
+  'ubuntuappearance',
+  'ubuntugeneral',
   'universal-access',
   'usage',
   'user-accounts'

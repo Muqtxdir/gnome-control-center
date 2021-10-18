@@ -85,9 +85,9 @@ struct _CcApplicationsPanel
   GSettings       *search_settings;
 
   GtkStack        *stack;
-  GtkButton       *install_button;
   GtkBox          *empty_box;
   GtkBox          *settings_box;
+  GtkButton       *install_button;
 
   GtkBox          *permission_section;
   GtkListBox      *permission_list;

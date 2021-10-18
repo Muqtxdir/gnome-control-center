@@ -42,6 +42,7 @@ struct _CcPanelList
 {
   GtkStack            parent;
 
+  GtkWidget          *customization_listbox;
   GtkWidget          *privacy_listbox;
   GtkWidget          *main_listbox;
   GtkWidget          *search_listbox;
@@ -51,6 +52,7 @@ struct _CcPanelList
    */
   gboolean            autoselect_panel : 1;
 
+  GtkListBoxRow      *customization_row;
   GtkListBoxRow      *privacy_row;
 
   gchar              *current_panel_id;
@@ -94,6 +96,9 @@ get_widget_from_view (CcPanelList     *self,
     case CC_PANEL_LIST_MAIN:
       return self->main_listbox;
 
+    case CC_PANEL_LIST_CUSTOMIZATION:
+      return self->customization_listbox;
+    
     case CC_PANEL_LIST_PRIVACY:
       return self->privacy_listbox;
 
@@ -115,6 +120,10 @@ get_listbox_from_category (CcPanelList     *self,
 
   switch (category)
     {
+    case CC_CATEGORY_CUSTOMIZATION:
+      return self->customization_listbox;
+      break;
+    
     case CC_CATEGORY_PRIVACY:
       return self->privacy_listbox;
       break;
@@ -154,6 +163,9 @@ get_view_from_listbox (CcPanelList *self,
   if (listbox == self->main_listbox)
     return CC_PANEL_LIST_MAIN;
 
+  if (listbox == self->customization_listbox)
+    return CC_PANEL_LIST_CUSTOMIZATION;
+  
   if (listbox == self->privacy_listbox)
     return CC_PANEL_LIST_PRIVACY;
 
@@ -238,6 +250,9 @@ get_panel_id_from_row (CcPanelList   *self,
 
   RowData *row_data;
 
+  if (row == self->customization_row)
+    return "customization";
+  
   if (row == self->privacy_row)
     return "privacy";
 
@@ -282,12 +297,11 @@ row_data_new (CcPanelCategory     category,
   data->keywords = g_strdupv (keywords);
 
   /* Setup the row */
-  grid = g_object_new (GTK_TYPE_GRID,
-                       "visible", TRUE,
-                       "hexpand", TRUE,
-                       "border-width", 12,
-                       "column-spacing", 12,
-                       NULL);
+  grid = gtk_grid_new ();
+  gtk_widget_show (grid);
+  gtk_widget_set_hexpand (grid, TRUE);
+  gtk_container_set_border_width (GTK_CONTAINER (grid), 12);
+  gtk_grid_set_column_spacing (GTK_GRID (grid), 12);
 
   /* Icon */
   image = gtk_image_new_from_icon_name (icon, GTK_ICON_SIZE_BUTTON);
@@ -298,21 +312,16 @@ row_data_new (CcPanelCategory     category,
   gtk_widget_show (image);
 
   /* Name label */
-  label = g_object_new (GTK_TYPE_LABEL,
-                        "label", name,
-                        "visible", TRUE,
-                        "xalign", 0.0,
-                        "hexpand", TRUE,
-                        NULL);
+  label = gtk_label_new (name);
+  gtk_widget_show (label);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_widget_set_hexpand (label, TRUE);
   gtk_grid_attach (GTK_GRID (grid), label, 1, 0, 1, 1);
 
   /* Description label */
-  label = g_object_new (GTK_TYPE_LABEL,
-                        "label", description,
-                        "visible", FALSE,
-                        "xalign", 0.0,
-                        "hexpand", TRUE,
-                        NULL);
+  label = gtk_label_new (description);
+  gtk_label_set_xalign (GTK_LABEL (label), 0.0);
+  gtk_widget_set_hexpand (label, TRUE);
   gtk_label_set_max_width_chars (GTK_LABEL (label), 25);
   gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
 
@@ -390,7 +399,7 @@ static const gchar * const panel_order[] = {
   "mobile-broadband",
   "bluetooth",
   "background",
-  "ubuntu",
+  "customization",
   "notifications",
   "search",
   "applications",
@@ -398,6 +407,12 @@ static const gchar * const panel_order[] = {
   "online-accounts",
   "sharing",
 
+  /* Customization page */
+  "ubuntugeneral",
+  "ubuntuappearance",
+  "ubuntu",
+  "multitasking",
+  
   /* Privacy page */
   "location",
   "camera",
@@ -514,6 +529,9 @@ header_func (GtkListBoxRow *row,
   if (!before)
     return;
 
+  if (row == self->customization_row || before == self->customization_row)
+    return;
+  
   if (row == self->privacy_row || before == self->privacy_row)
     return;
 
@@ -550,6 +568,12 @@ row_activated_cb (GtkWidget     *listbox,
 {
   RowData *data;
 
+  if (row == self->customization_row)
+    {
+      switch_to_view (self, CC_PANEL_LIST_CUSTOMIZATION);
+      goto out;
+    }
+  
   if (row == self->privacy_row)
     {
       switch_to_view (self, CC_PANEL_LIST_PRIVACY);
@@ -565,6 +589,9 @@ row_activated_cb (GtkWidget     *listbox,
       if (listbox != self->main_listbox)
         gtk_list_box_unselect_all (GTK_LIST_BOX (self->main_listbox));
 
+      if (listbox != self->customization_listbox)
+        gtk_list_box_unselect_all (GTK_LIST_BOX (self->customization_listbox));
+      
       if (listbox != self->privacy_listbox)
         gtk_list_box_unselect_all (GTK_LIST_BOX (self->privacy_listbox));
     }
@@ -612,6 +639,9 @@ search_row_activated_cb (GtkWidget     *listbox,
 
   data = g_object_get_data (G_OBJECT (row), "data");
 
+  if (data->category == CC_CATEGORY_CUSTOMIZATION)
+    real_listbox = self->customization_listbox;
+  
   if (data->category == CC_CATEGORY_PRIVACY)
     real_listbox = self->privacy_listbox;
   else
@@ -782,6 +812,8 @@ cc_panel_list_class_init (CcPanelListClass *klass)
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/ControlCenter/gtk/cc-panel-list.ui");
 
+  gtk_widget_class_bind_template_child (widget_class, CcPanelList, customization_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcPanelList, customization_row);
   gtk_widget_class_bind_template_child (widget_class, CcPanelList, privacy_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcPanelList, privacy_row);
   gtk_widget_class_bind_template_child (widget_class, CcPanelList, main_listbox);
@@ -805,6 +837,11 @@ cc_panel_list_init (CcPanelList *self)
                               self,
                               NULL);
 
+  gtk_list_box_set_sort_func (GTK_LIST_BOX (self->customization_listbox),
+                              sort_function,
+                              self,
+                              NULL);
+  
   gtk_list_box_set_sort_func (GTK_LIST_BOX (self->privacy_listbox),
                               sort_function,
                               self,
@@ -966,6 +1003,9 @@ cc_panel_list_add_panel (CcPanelList        *self,
   /* Only show the Devices/Details rows when there's at least one panel */
   if (category == CC_CATEGORY_PRIVACY)
     gtk_widget_show (GTK_WIDGET (self->privacy_row));
+    
+  if (category == CC_CATEGORY_CUSTOMIZATION)
+    gtk_widget_show (GTK_WIDGET (self->customization_row));
 }
 
 /**

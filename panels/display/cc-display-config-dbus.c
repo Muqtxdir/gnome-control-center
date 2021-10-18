@@ -194,7 +194,24 @@ cc_display_mode_dbus_new (GVariant *variant)
                  &properties_variant);
 
   while (g_variant_iter_next (scales_iter, "d", &d))
-    g_array_append_val (self->supported_scales, d);
+    {
+      guint i;
+      gboolean found = FALSE;
+
+      for (i = 0; i < self->supported_scales->len; i++)
+        {
+          double val = g_array_index (self->supported_scales, double, i);
+
+          if (G_APPROX_VALUE (d, val, DBL_EPSILON))
+            {
+              found = TRUE;
+              break;
+            }
+        }
+
+      if (!found)
+        g_array_append_val (self->supported_scales, d);
+    }
 
   if (!g_variant_lookup (properties_variant, "is-current", "b", &is_current))
     is_current = FALSE;

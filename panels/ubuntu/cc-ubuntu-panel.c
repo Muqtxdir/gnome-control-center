@@ -22,6 +22,7 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <glib.h>
+#include <glib/gprintf.h>
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 
@@ -43,36 +44,29 @@
 #define UBUNTU_DOCK_ALL_MONITORS_KEY "multi-monitor"
 #define UBUNTU_DOCK_ON_MONITOR_KEY "preferred-monitor"
 
-#define SHELL_SCHEMA "org.gnome.shell.extensions.user-theme"
-#define SHELL_THEME_KEY "name"
-
-#define INTERFACE_SCHEMA "org.gnome.desktop.interface"
-#define GTK_THEME_KEY "gtk-theme"
-#define CURSOR_THEME_KEY "cursor-theme"
-#define ICON_THEME_KEY "icon-theme"
-
 struct _CcUbuntuPanel {
   CcPanel                 parent_instance;
 
   GtkSwitch              *dock_autohide_switch;
   GtkSwitch              *dock_extendheight_switch;
-  GtkSwitch              *dock_showmounted_switch;
-  GtkListBox             *dock_listbox;
+  GtkCheckButton         *dock_showmounted_button;
+  GtkCheckButton         *dock_showtrash_button;
+  GtkSwitch              *dock_show_apps_switch;
+  GtkSwitch              *dock_movetop_button;
   GtkListBoxRow          *dock_monitor_row;
+  GtkListBox             *dock_general_listbox;
+  GtkListBox             *dock_behavior_listbox;
+  GtkListBox             *dock_launcher_listbox;
+  GtkListBox             *dock_position_listbox;
   GtkComboBox            *dock_placement_combo;
+  GtkComboBoxText        *dock_clickaction_combo;
+  GtkComboBoxText        *dock_scrollaction_combo;
   GtkListStore           *dock_placement_liststore;
   GtkComboBoxText        *dock_position_combo;
-  GtkComboBoxText        *dock_click_combo;
   GtkAdjustment          *icon_size_adjustment;
   GtkScale               *icon_size_scale;
-  GtkFlowBox             *theme_box;
-  GtkFlowBoxChild        *theme_dark;
-  GtkFlowBoxChild        *theme_light;
-  GtkFlowBoxChild        *theme_standard;
 
   GSettings              *dock_settings;
-  GSettings              *shell_settings;
-  GSettings              *interface_settings;
   CcDisplayConfigManager *display_config_manager;
   GDBusProxy             *shell_proxy;
 };
@@ -90,8 +84,6 @@ cc_ubuntu_panel_dispose (GObject *object)
   monitor_labeler_hide (self);
 
   g_clear_object (&self->dock_settings);
-  g_clear_object (&self->shell_settings);
-  g_clear_object (&self->interface_settings);
   g_clear_object (&self->display_config_manager);
   g_clear_object (&self->shell_proxy);
 
@@ -157,7 +149,10 @@ monitor_labeler_show (CcUbuntuPanel *self)
   g_variant_builder_close (&builder);
 
   if (number < 2 || n_monitors < 2)
-    return monitor_labeler_hide (self);
+    {
+      g_variant_builder_clear (&builder);
+      return monitor_labeler_hide (self);
+    }
 
   g_dbus_proxy_call (self->shell_proxy,
                      "ShowMonitorLabels",
@@ -345,7 +340,7 @@ on_screen_changed (CcUbuntuPanel *self)
                           1, monitor_id,
                           -1);
     }
-
+    
   gtk_widget_set_visible (GTK_WIDGET (self->dock_monitor_row), valid_outputs != NULL);
 
   gtk_list_store_prepend (self->dock_placement_liststore, &ubuntu_dock_placement_iter);
@@ -380,84 +375,6 @@ session_bus_ready (GObject        *source,
                            G_CALLBACK (on_screen_changed),
                            self,
                            G_CONNECT_SWAPPED);
-}
-
-static void
-on_theme_box_selected_children_changed (CcUbuntuPanel *self)
-{
-  const gchar *gtk_theme = NULL;
-  const gchar *shell_theme = NULL;
-  const gchar *icon_theme = NULL;
-  const gchar *cursor_theme = NULL;
-  
-  g_autoptr(GList) selected = NULL;
-
-  selected = gtk_flow_box_get_selected_children (self->theme_box);
-  if (selected != NULL)
-    {
-      GtkFlowBoxChild *selected_item = GTK_FLOW_BOX_CHILD (g_list_nth_data (selected, 0));
-      if (selected_item == self->theme_standard)
-      {
-        gtk_theme = "Yaru";
-        shell_theme = "Yaru-light";
-        icon_theme = "Yaru";
-        cursor_theme = "Yaru";
-      }
-      else if (selected_item == self->theme_light)
-      {
-        gtk_theme = "Yaru-light";
-        shell_theme = "Yaru-light";
-        icon_theme = "Yaru";
-        cursor_theme = "Yaru";
-      }  
-      else if (selected_item == self->theme_dark)
-      {
-        gtk_theme = "Yaru-dark";
-        shell_theme = "Yaru";
-        icon_theme = "Yaru";
-        cursor_theme = "Yaru";
-      }
-    }
-
-  if (gtk_theme != NULL)
-    g_settings_set_string (self->interface_settings, GTK_THEME_KEY, gtk_theme);
-    
-  if (shell_theme != NULL)
-    g_settings_set_string (self->shell_settings, SHELL_THEME_KEY, shell_theme);
-    
-  if (icon_theme != NULL)
-    g_settings_set_string (self->interface_settings, ICON_THEME_KEY, icon_theme);
-    
-  if (cursor_theme != NULL)
-    g_settings_set_string (self->interface_settings, CURSOR_THEME_KEY, cursor_theme);
-}
-
-static void
-on_interface_settings_changed (CcUbuntuPanel *self)
-{
-  g_autofree gchar *gtk_theme = NULL;
-  g_autofree gchar *cursor_theme = NULL;
-  g_autofree gchar *icon_theme = NULL;
-  GtkFlowBoxChild *theme_item = NULL;
-
-  gtk_theme = g_settings_get_string (self->interface_settings, GTK_THEME_KEY);
-  cursor_theme = g_settings_get_string (self->interface_settings, CURSOR_THEME_KEY);
-  icon_theme = g_settings_get_string (self->interface_settings, ICON_THEME_KEY);
-
-  if (g_str_equal (cursor_theme, "Yaru") && g_str_equal (icon_theme, "Yaru"))
-    {
-      if (g_strcmp0 (gtk_theme, "Yaru") == 0)
-        theme_item = self->theme_standard;
-      else if (g_strcmp0 (gtk_theme, "Yaru-light") == 0)
-        theme_item = self->theme_light;
-      else if (g_strcmp0 (gtk_theme, "Yaru-dark") == 0)  
-        theme_item = self->theme_dark;
-    }
-
-  if (theme_item != NULL)
-    gtk_flow_box_select_child (self->theme_box, theme_item);
-  else
-    gtk_flow_box_unselect_all (self->theme_box);
 }
 
 static void
@@ -583,24 +500,26 @@ cc_ubuntu_panel_class_init (CcUbuntuPanelClass *klass)
 
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_autohide_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_extendheight_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showmounted_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showmounted_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showtrash_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_show_apps_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_movetop_button);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_general_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_behavior_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_launcher_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_position_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_monitor_row);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_placement_combo);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_clickaction_combo);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_scrollaction_combo);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_placement_liststore);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_position_combo);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_click_combo);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, icon_size_adjustment);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, icon_size_scale);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, theme_box);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, theme_dark);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, theme_light);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, theme_standard);
 
   gtk_widget_class_bind_template_callback (widget_class, on_dock_placement_combo_changed);
   gtk_widget_class_bind_template_callback (widget_class, on_icon_size_adjustment_value_changed);
   gtk_widget_class_bind_template_callback (widget_class, on_icon_size_format_value);
-  gtk_widget_class_bind_template_callback (widget_class, on_theme_box_selected_children_changed);
 }
 
 static void
@@ -660,79 +579,14 @@ dock_position_set_mapping (const GValue       *value,
   return g_variant_new_string (get_dock_position_for_direction (self, position));
 }
 
-static const char *
-get_dock_click_for_direction (CcUbuntuPanel *self,
-                                 const char    *click)
-{
-  if (gtk_widget_get_state_flags (GTK_WIDGET (self)) & GTK_STATE_FLAG_DIR_RTL)
-    {
-      if (g_str_equal (click, "skip"))
-        click = "skip";
-      else if (g_str_equal (click, "minimize"))
-        click = "minimize";
-      else if (g_str_equal (click, "launch"))
-        click = "launch";
-      else if (g_str_equal (click, "cycle-windows"))
-        click = "cycle-windows";
-      else if (g_str_equal (click, "minimize-or-overview"))
-        click = "minimize-or-overview";
-      else if (g_str_equal (click, "previews"))
-        click = "previews";
-      else if (g_str_equal (click, "focus-or-previews"))
-        click = "focus-or-previews";
-      else if (g_str_equal (click, "quit"))
-        click = "quit";
-    }
-
-  return click;
-}
-
-static gboolean
-dock_click_get_mapping (GValue   *value,
-                           GVariant *variant,
-                           gpointer  user_data)
-{
-  CcUbuntuPanel *self = user_data;
-  const char *click;
-
-  click = g_variant_get_string (variant, NULL);
-  g_value_set_string (value, get_dock_click_for_direction (self, click));
-
-  return TRUE;
-}
-
-static GVariant *
-dock_click_set_mapping (const GValue       *value,
-                           const GVariantType *type,
-                           gpointer            user_data)
-{
-  CcUbuntuPanel *self = user_data;
-  const char *click;
-
-  click = g_value_get_string (value);
-
-  return g_variant_new_string (get_dock_click_for_direction (self, click));
-}
-
 static void
 cc_ubuntu_panel_init (CcUbuntuPanel *self)
 {
   g_autoptr(GSettingsSchema) schema = NULL;
-  g_autoptr(GSettingsSchema) shellschema = NULL;
 
   g_resources_register (cc_ubuntu_get_resource ());
 
   gtk_widget_init_template (GTK_WIDGET (self));
-
-  gtk_list_box_set_header_func (self->dock_listbox, cc_list_box_update_header_func, NULL, NULL);
-
-  self->interface_settings = g_settings_new (INTERFACE_SCHEMA);
-  g_signal_connect_object (self->interface_settings, "changed::" GTK_THEME_KEY,
-                           G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->interface_settings, "changed::" CURSOR_THEME_KEY,
-                           G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
-  g_signal_connect_object (self->interface_settings, "changed::" ICON_THEME_KEY,
-                           G_CALLBACK (on_interface_settings_changed), self, G_CONNECT_SWAPPED);
 
   /* Only load if we have ubuntu dock or dash to dock installed */
   schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), UBUNTU_DOCK_SCHEMA, TRUE);
@@ -754,24 +608,30 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
                                 dock_position_get_mapping,
                                 dock_position_set_mapping,
                                 self, NULL);
-  g_settings_bind_with_mapping (self->dock_settings, "click-action",
-                                self->dock_click_combo, "active-id",
-                                G_SETTINGS_BIND_DEFAULT,
-                                dock_click_get_mapping,
-                                dock_click_set_mapping,
-                                self, NULL);
+  g_settings_bind (self->dock_settings, "click-action",
+                                self->dock_clickaction_combo, "active-id",
+                                G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind (self->dock_settings, "scroll-action",
+                                self->dock_scrollaction_combo, "active-id",
+                                G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "dock-fixed",
                    self->dock_autohide_switch, "active",
                    G_SETTINGS_BIND_INVERT_BOOLEAN);
-                   
   g_settings_bind (self->dock_settings, "extend-height",
                    self->dock_extendheight_switch, "active",
                    G_SETTINGS_BIND_DEFAULT);
-                   
   g_settings_bind (self->dock_settings, "show-mounts",
-                   self->dock_showmounted_switch, "active",
+                   self->dock_showmounted_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
-
+  g_settings_bind (self->dock_settings, "show-trash",
+                   self->dock_showtrash_button, "active",
+                   G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind (self->dock_settings, "show-show-apps-button",
+                   self->dock_show_apps_switch, "active",
+                   G_SETTINGS_BIND_DEFAULT);
+  g_settings_bind (self->dock_settings, "show-apps-at-top",
+                   self->dock_movetop_button, "active",
+                   G_SETTINGS_BIND_DEFAULT);
 
   /* Icon size change - we halve the sizes so we can only get even values */
   gtk_adjustment_set_value (self->icon_size_adjustment, DEFAULT_ICONSIZE / 2);
@@ -780,7 +640,6 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   gtk_scale_add_mark (self->icon_size_scale, DEFAULT_ICONSIZE / 2, GTK_POS_BOTTOM, NULL);
 
   icon_size_widget_refresh (self);
-  on_interface_settings_changed (self);
 
   cc_object_storage_create_dbus_proxy (G_BUS_TYPE_SESSION,
                                        G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
@@ -796,14 +655,6 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   g_signal_connect (self, "map", G_CALLBACK (mapped_cb), NULL);
 
   g_bus_get (G_BUS_TYPE_SESSION, NULL, session_bus_ready, self);
-  
-  shellschema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), SHELL_SCHEMA, TRUE);
-  if (!shellschema)
-    {
-      g_warning ("No user-theme is installed globally. Please install gnome-shell-extension-user-theme.");
-      return;
-    }                         
-  self->shell_settings = g_settings_new (SHELL_SCHEMA);
 }
 
 void
