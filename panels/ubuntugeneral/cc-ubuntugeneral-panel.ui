@@ -92,13 +92,29 @@
                         <property name="visible">1</property>
                         <property name="can_focus">1</property>
                         <child>
-                          <object class="GtkImage">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="pixel_size">64</property>
-                            <property name="icon_name">user-home</property>
-                            <property name="valign">start</property>
+                            <property name="orientation">vertical</property>
                             <property name="margin_left">6</property>
                             <property name="margin_end">18</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="pixel_size">64</property>
+                                <property name="icon_name">user-home</property>
+                                <property name="valign">start</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes" >Home</property>
+                                <property name="margin_top">6</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.9"/>
+                                </attributes>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -112,13 +128,29 @@
                         <property name="visible">1</property>
                         <property name="can_focus">1</property>
                         <child>
-                          <object class="GtkImage">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="pixel_size">64</property>
-                            <property name="icon_name">user-trash</property>
-                            <property name="valign">start</property>
+                            <property name="orientation">vertical</property>
                             <property name="margin_left">6</property>
                             <property name="margin_end">18</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="pixel_size">64</property>
+                                <property name="icon_name">user-trash</property>
+                                <property name="valign">start</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes" >Trash</property>
+                                <property name="margin_top">6</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.9"/>
+                                </attributes>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -132,13 +164,29 @@
                         <property name="visible">1</property>
                         <property name="can_focus">1</property>
                         <child>
-                          <object class="GtkImage">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="pixel_size">64</property>
-                            <property name="icon_name">network-server</property>
-                            <property name="valign">start</property>
+                            <property name="orientation">vertical</property>
                             <property name="margin_left">6</property>
                             <property name="margin_end">18</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="pixel_size">64</property>
+                                <property name="icon_name">network-server</property>
+                                <property name="valign">start</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes" >Network drives</property>
+                                <property name="margin_top">6</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.9"/>
+                                </attributes>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -152,12 +200,28 @@
                         <property name="visible">1</property>
                         <property name="can_focus">1</property>
                         <child>
-                          <object class="GtkImage">
+                          <object class="GtkBox">
                             <property name="visible">True</property>
-                            <property name="pixel_size">64</property>
-                            <property name="icon_name">drive-removable-media</property>
-                            <property name="valign">start</property>
+                            <property name="orientation">vertical</property>
                             <property name="margin_left">6</property>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="pixel_size">64</property>
+                                <property name="icon_name">drive-removable-media</property>
+                                <property name="valign">start</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkLabel">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes" >Mounted media</property>
+                                <property name="margin_top">6</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.9"/>
+                                </attributes>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
