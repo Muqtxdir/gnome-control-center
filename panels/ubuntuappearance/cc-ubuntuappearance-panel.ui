@@ -29,11 +29,17 @@
                 <child>
                   <object class="GtkFlowBoxChild" id="theme_default">
                     <property name="visible">True</property>
+                    <style>
+                      <class name="appearance-preview" />
+                    </style>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
                         <property name="margin">2</property>
+                        <style>
+                          <class name="appearance-preview" />
+                        </style>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -48,6 +54,7 @@
                                   <class name="icon-dropshadow"/>
                                   <class name="content-view"/>
                                   <class name="frame"/>
+                                  <class name="theme-thumbnail"/>
                                 </style>
                               </object>
                             </child>
@@ -56,7 +63,7 @@
                                 <property name="visible">True</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
-                                <property name="margin">8</property>
+                                <property name="margin">10</property>
                                 <property name="label" translatable="yes" context="Yaru theme in use">Light</property>
                               </object>
                             </child>
@@ -73,11 +80,17 @@
                 <child>
                   <object class="GtkFlowBoxChild" id="theme_dark">
                     <property name="visible">True</property>
+                    <style>
+                      <class name="appearance-preview" />
+                    </style>
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
                         <property name="orientation">vertical</property>
                         <property name="margin">2</property>
+                        <style>
+                          <class name="appearance-preview" />
+                        </style>
                         <child>
                           <object class="GtkBox">
                             <property name="visible">True</property>
@@ -92,6 +105,7 @@
                                   <class name="icon-dropshadow"/>
                                   <class name="content-view"/>
                                   <class name="frame"/>
+                                  <class name="theme-thumbnail"/>
                                 </style>
                               </object>
                             </child>
@@ -100,7 +114,7 @@
                                 <property name="visible">True</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
-                                <property name="margin">8</property>
+                                <property name="margin-top">10</property>
                                 <property name="label" translatable="yes" context="Yaru theme in use">Dark</property>
                               </object>
                             </child>

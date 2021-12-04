@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/org/gnome/control-center/ubuntuappearance">
     <file preprocess="xml-stripblanks">cc-ubuntuappearance-panel.ui</file>
+    <file>appearance.css</file>
     <!-- Assets -->
     <file>assets/theme-dark.png</file>
     <file>assets/theme-default.png</file>

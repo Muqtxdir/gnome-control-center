@@ -151,6 +151,20 @@ text_size_label_mapping_get (GValue   *value,
 }
 
 static void
+load_custom_css (CcUbuntuAppearancePanel *self)
+{
+  g_autoptr(GtkCssProvider) provider = NULL;
+
+  /* use custom CSS */
+  provider = gtk_css_provider_new ();
+  gtk_css_provider_load_from_resource (provider, "/org/gnome/control-center/ubuntuappearance/appearance.css");
+  gtk_style_context_add_provider_for_screen (gdk_screen_get_default (),
+                                             GTK_STYLE_PROVIDER (provider),
+                                             GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+
+}
+
+static void
 on_theme_box_selected_children_changed (CcUbuntuAppearancePanel *self)
 {
   const gchar *gtk_theme = NULL;
@@ -261,6 +275,7 @@ cc_ubuntuappearance_panel_init (CcUbuntuAppearancePanel *self)
                                 NULL, NULL, NULL);
 
   on_interface_settings_changed (self);
+  load_custom_css (self);
 }
 
 void

@@ -20,6 +20,7 @@ i18n.merge_file(
 sources = files('cc-ubuntuappearance-panel.c')
 
 resource_data = files('cc-ubuntuappearance-panel.ui',
+		        'appearance.css',
 )
 
 sources += gnome.compile_resources(
