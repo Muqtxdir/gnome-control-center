@@ -9,6 +9,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2.4.0
 
+    - name: Enable source-code
+      run: sudo sed -i '/^#\sdeb-src /s/^#//' "/etc/apt/sources.list"
+    
     - name: Install dependencies
       run: sudo apt build-dep gnome-control-center
 
