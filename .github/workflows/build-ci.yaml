@@ -1,0 +1,19 @@
+name: Build CI test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2.4.0
+
+    - name: Install dependencies
+      run: sudo apt install meson sassc
+
+    - name: Build and Install
+      run: |
+        meson build -Dgnome-shell-gresource=true -Dmate=true -Dmate-dark=true -Dubuntu-unity=true -Dxfwm4=true
+        cd build
+        sudo ninja install
