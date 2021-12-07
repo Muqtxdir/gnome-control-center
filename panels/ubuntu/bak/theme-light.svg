@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="100%"
+   height="100%"
+   viewBox="0 0 130 90"
+   id="svg3030">
+  <title
+     id="title3041">Artboard 1</title>
+  <metadata
+     id="metadata3081">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Artboard 1</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3032">
+    <style
+       id="style3034" />
+    <linearGradient
+       x1="65"
+       y1="90"
+       x2="65"
+       id="linear-gradient"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         id="stop3037"
+         style="stop-color:#7a0839;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop3039"
+         style="stop-color:#510045;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <g
+     id="Shell">
+    <g
+       id="Wallpaper">
+      <rect
+         width="130"
+         height="90"
+         x="0"
+         y="0"
+         id="rect3045"
+         style="fill:url(#linear-gradient)" />
+    </g>
+    <g
+       id="Shell-2">
+      <rect
+         width="130"
+         height="13"
+         x="0"
+         y="0"
+         id="rect3048"
+         style="opacity:0.5" />
+      <rect
+         width="25"
+         height="77"
+         x="0"
+         y="13"
+         id="rect3050"
+         style="opacity:0.4" />
+      <g
+         id="g3052"
+         style="opacity:0.3">
+        <rect
+           width="14.44"
+           height="14.44"
+           rx="3"
+           x="5.2800002"
+           y="17.99"
+           id="rect3054"
+           style="fill:#ffffff" />
+        <rect
+           width="14.44"
+           height="14.44"
+           rx="3"
+           x="5.2800002"
+           y="37.75"
+           id="rect3056"
+           style="fill:#ffffff" />
+        <rect
+           width="14.44"
+           height="14.44"
+           rx="3"
+           x="5.2800002"
+           y="57.509998"
+           id="rect3058"
+           style="fill:#ffffff" />
+      </g>
+    </g>
+  </g>
+  <rect
+     width="93.059998"
+     height="21.91"
+     x="37"
+     y="23.940001"
+     id="rect3061"
+     style="fill:#e5e9ec" />
+  <rect
+     width="63"
+     height="44.150002"
+     x="37"
+     y="45.849998"
+     id="rect3063"
+     style="fill:#f8f9fa" />
+  <rect
+     width="63"
+     height="11.94"
+     x="37"
+     y="62"
+     id="rect3065"
+     style="fill:#e95420" />
+  <rect
+     width="1.17"
+     height="44.150002"
+     x="-101.16"
+     y="-90"
+     transform="scale(-1,-1)"
+     id="rect3067"
+     style="fill:#e3e3e3" />
+  <rect
+     width="28.76"
+     height="44.150002"
+     x="101.17"
+     y="45.849998"
+     id="rect3069"
+     style="fill:#ffffff" />
+  <rect
+     width="46.880001"
+     height="11.99"
+     x="71.150002"
+     y="28.92"
+     id="rect3071"
+     style="fill:#c8c9ca" />
+  <rect
+     width="35.189999"
+     height="1.0599999"
+     x="76.980003"
+     y="39.849998"
+     id="rect3073"
+     style="fill:#e95420" />
+  <rect
+     width="12"
+     height="11.99"
+     x="41.150002"
+     y="28.92"
+     id="rect3288"
+     style="fill:#c8c9ca;fill-opacity:1" />
+  <rect
+     width="12"
+     height="11.99"
+     x="56.150002"
+     y="28.92"
+     id="rect3290"
+     style="fill:#c8c9ca;fill-opacity:1" />
+</svg>

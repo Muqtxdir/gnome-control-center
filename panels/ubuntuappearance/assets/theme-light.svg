@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="167"
+   height="125"
+   viewBox="0 0 167 125"
+   id="svg2"
+   sodipodi:docname="theme-light.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1294"
+     inkscape:window-height="704"
+     id="namedview29"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="5.2444444"
+     inkscape:cx="102.72395"
+     inkscape:cy="13.356759"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2">
+    <inkscape:grid
+       type="xygrid"
+       id="grid31" />
+  </sodipodi:namedview>
+  <title
+     id="title13">Artboard 1</title>
+  <metadata
+     id="metadata53">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Artboard 1</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4">
+    <style
+       id="style6" />
+    <linearGradient
+       x1="65"
+       y1="90"
+       x2="65"
+       id="linear-gradient"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         id="stop9"
+         style="stop-color:#7a0839;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop11"
+         style="stop-color:#510045;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <g
+     id="g50"
+     transform="matrix(1.2844841,0,0,1.2844841,0,9.3964316)">
+    <g
+       id="Shell">
+      <g
+         id="Wallpaper">
+        <rect
+           style="fill:url(#linear-gradient)"
+           id="rect17"
+           y="-7.3153353"
+           x="0"
+           height="97.315338"
+           width="130" />
+      </g>
+      <g
+         id="Shell-2">
+        <rect
+           style="opacity:0.5"
+           id="rect20"
+           y="-7.3153353"
+           x="0"
+           height="13"
+           width="130" />
+        <rect
+           style="opacity:0.4;stroke-width:1.04642463"
+           id="rect22"
+           y="5.6846647"
+           x="0"
+           height="84.315338"
+           width="25" />
+        <g
+           style="opacity:0.3"
+           id="g24">
+          <rect
+             style="fill:#ffffff"
+             id="rect26"
+             y="10.674664"
+             x="5.2800002"
+             rx="3"
+             height="14.44"
+             width="14.44" />
+          <rect
+             style="fill:#ffffff"
+             id="rect28"
+             y="30.434666"
+             x="5.2800002"
+             rx="3"
+             height="14.44"
+             width="14.44" />
+          <rect
+             style="fill:#ffffff"
+             id="rect30"
+             y="50.194664"
+             x="5.2800002"
+             rx="3"
+             height="14.44"
+             width="14.44" />
+        </g>
+      </g>
+    </g>
+    <rect
+       style="fill:#e5e9ec;fill-opacity:1"
+       id="rect33"
+       y="23.940001"
+       x="37"
+       height="21.91"
+       width="93.059998" />
+    <rect
+       style="fill:#f8f9fa"
+       id="rect35"
+       y="45.849998"
+       x="37"
+       height="44.150002"
+       width="63" />
+    <rect
+       style="fill:#e95420"
+       id="rect37"
+       y="62"
+       x="37"
+       height="11.94"
+       width="63" />
+    <rect
+       style="fill:#e3e3e3"
+       id="rect39"
+       transform="scale(-1)"
+       y="-90"
+       x="-101.16"
+       height="44.150002"
+       width="1.17" />
+    <rect
+       style="fill:#ffffff"
+       id="rect41"
+       y="45.849998"
+       x="101.17"
+       height="44.150002"
+       width="28.76" />
+    <rect
+       style="fill:#c8c9ca;fill-opacity:1"
+       id="rect43"
+       y="28.92"
+       x="71.150002"
+       height="11.99"
+       width="46.880001" />
+    <rect
+       style="fill:#e95420"
+       id="rect45"
+       y="39.849998"
+       x="76.980003"
+       height="1.0599999"
+       width="35.189999" />
+    <rect
+       style="fill:#c8c9ca;fill-opacity:1"
+       id="rect3288"
+       y="28.92"
+       x="41.150002"
+       height="11.99"
+       width="12" />
+    <rect
+       style="fill:#c8c9ca;fill-opacity:1"
+       id="rect3290"
+       y="28.92"
+       x="56.149998"
+       height="11.99"
+       width="12" />
+  </g>
+  <rect
+     style="fill:#e3e3e3;stroke-width:1.28448415"
+     id="rect39-3"
+     transform="scale(-1)"
+     y="-125"
+     x="-167.06"
+     height="56.709976"
+     width="1.5028464" />
+  <rect
+     style="fill:#e3e3e3;stroke-width:1.86848509"
+     id="rect39-6"
+     transform="rotate(-90)"
+     y="47.526001"
+     x="-125"
+     height="120"
+     width="1.5028464" />
+</svg>
