@@ -17,9 +17,13 @@ i18n.merge_file(
   install_dir: control_center_desktopdir
 )
 
-sources = files('cc-ubuntuappearance-panel.c')
+sources = files(
+  'cc-multitasking-panel.c',
+)
 
-resource_data = files('cc-ubuntuappearance-panel.ui')
+resource_data = files(
+  'cc-multitasking-panel.ui',
+)
 
 sources += gnome.compile_resources(
   'cc-' + cappletname + '-resources',
@@ -29,12 +33,14 @@ sources += gnome.compile_resources(
   export: true
 )
 
-cflags += '-DGNOMELOCALEDIR="@0@"'.format(control_center_localedir)
+cflags += [
+  '-DDATADIR="@0@"'.format(control_center_datadir)
+]
 
 panels_libs += static_library(
   cappletname,
   sources: sources,
-  include_directories: [top_inc, common_inc],
+  include_directories: [ top_inc, common_inc ],
   dependencies: common_deps,
   c_args: cflags
 )

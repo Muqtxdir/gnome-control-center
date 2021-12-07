@@ -417,6 +417,7 @@ static const gchar * const panel_order[] = {
   "ubuntugeneral",
   "ubuntuappearance",
   "ubuntu",
+  "multitasking",
   
 
   /* Privacy page */

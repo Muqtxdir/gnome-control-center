@@ -296,8 +296,6 @@
                     <property name="visible">true</property>
                     <property name="title" translatable="yes">Dyslexia-friendly text</property>
                     <property name="activatable-widget">dyslexia_friendly_switch</property>
-                    <property name="margin_top">4</property>
-                    <property name="margin_bottom">4</property>
                     <property name="use-underline">true</property>
                     <child type="action">
                       <object class="GtkSwitch" id="dyslexia_friendly_switch">
