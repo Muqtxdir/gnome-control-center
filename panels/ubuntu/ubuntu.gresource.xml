@@ -2,5 +2,9 @@
 <gresources>
   <gresource prefix="/org/gnome/control-center/ubuntu">
     <file preprocess="xml-stripblanks">cc-ubuntu-panel.ui</file>
+    
+    <!-- Assets -->
+    <file>assets/auto-hide.svg</file>
+    <file>assets/panel-mode.svg</file>
   </gresource>
 </gresources>

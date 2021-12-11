@@ -54,6 +54,28 @@
                             <property name="valign">center</property>
                           </object>
                         </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="margin_start">12</property>
+                            <property name="margin_end">12</property>
+                            <style>
+                              <class name="content-view"/>
+                              <class name="frame"/>
+                            </style>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="halign">center</property>
+                                <property name="margin">12</property>
+                                <property name="resource">/org/gnome/control-center/ubuntu/assets/auto-hide.svg</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
                       </object>
                     </child>
                     <child>
@@ -68,6 +90,28 @@
                             <property name="visible">true</property>
                             <property name="halign">end</property>
                             <property name="valign">center</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
+                            <property name="margin_bottom">12</property>
+                            <property name="margin_start">12</property>
+                            <property name="margin_end">12</property>
+                            <style>
+                              <class name="content-view"/>
+                              <class name="frame"/>
+                            </style>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="halign">center</property>
+                                <property name="margin">12</property>
+                                <property name="resource">/org/gnome/control-center/ubuntu/assets/panel-mode.svg</property>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -98,78 +142,46 @@
                     <property name="selection-mode">none</property>
                     <property name="margin_bottom">12</property>
                     <child>
-                      <object class="GtkListBoxRow">
+                      <object class="HdyActionRow">
                         <property name="visible">true</property>
-                        <child>
-                          <object class="GtkBox">
+                        <property name="title" translatable="yes">Click action</property>
+                        <property name="subtitle" translatable="yes">Behavior when clicking on app-icon.</property>
+                        <property name="activatable-widget">dock_clickaction_combo</property>
+                        <property name="use-underline">true</property>
+                        <child type="action">
+                          <object class="GtkComboBoxText" id="dock_clickaction_combo">
                             <property name="visible">true</property>
-                            <property name="margin">12</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">true</property>
-                                <property name="label" translatable="yes">Click action</property>
-                                <property name="use_underline">1</property>
-                                <property name="mnemonic_widget">dock_clickaction_combo</property>
-                                <property name="sensitive" bind-source="dock_clickaction_combo" bind-property="sensitive"/>
-                                <property name="xalign">0</property>
-                                <property name="valign">center</property>
-                              </object>
-                              <packing>
-                                <property name="expand">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="dock_clickaction_combo">
-                                <property name="visible">true</property>
-                                <property name="valign">center</property>
-                                <property name="entry_text_column">0</property>
-                                <items>
-                                  <item id="focus-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Default</item>
-                                  <item id="minimize" translatable="yes" context="Behavior when clicking on app-icon">Minimize</item>
-                                  <item id="cycle-windows" translatable="yes" context="Behavior when clicking on app-icon">Cycle through windows</item>
-                                  <item id="minimize-or-overview" translatable="yes" context="Behavior when clicking on app-icon">Minimize or overview</item>
-                                  <item id="previews" translatable="yes" context="Behavior when clicking on app-icon">Show window previews</item>
-                                  <item id="minimize-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Minimize or show previews</item>
-                                </items>
-                              </object>
-                            </child>
+                            <property name="valign">center</property>
+                            <property name="entry_text_column">0</property>
+                            <items>
+                              <item id="focus-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Default</item>
+                              <item id="minimize" translatable="yes" context="Behavior when clicking on app-icon">Minimize</item>
+                              <item id="cycle-windows" translatable="yes" context="Behavior when clicking on app-icon">Cycle through windows</item>
+                              <item id="minimize-or-overview" translatable="yes" context="Behavior when clicking on app-icon">Minimize or overview</item>
+                              <item id="previews" translatable="yes" context="Behavior when clicking on app-icon">Show window previews</item>
+                              <item id="minimize-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Minimize or show previews</item>
+                            </items>
                           </object>
                         </child>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkListBoxRow">
+                      <object class="HdyActionRow">
                         <property name="visible">true</property>
-                        <child>
-                          <object class="GtkBox">
+                        <property name="title" translatable="yes">Scroll action</property>
+                        <property name="subtitle" translatable="yes">Behavior when scrolling on an open app-icon.</property>
+                        <property name="activatable-widget">dock_scrollaction_combo</property>
+                        <property name="use-underline">true</property>
+                        <child type="action">
+                          <object class="GtkComboBoxText" id="dock_scrollaction_combo">
                             <property name="visible">true</property>
-                            <property name="margin">12</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">true</property>
-                                <property name="label" translatable="yes">Scroll action</property>
-                                <property name="use_underline">1</property>
-                                <property name="mnemonic_widget">dock_scrollaction_combo</property>
-                                <property name="sensitive" bind-source="dock_scrollaction_combo" bind-property="sensitive"/>
-                                <property name="xalign">0</property>
-                                <property name="valign">center</property>
-                              </object>
-                              <packing>
-                                <property name="expand">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkComboBoxText" id="dock_scrollaction_combo">
-                                <property name="visible">true</property>
-                                <property name="valign">center</property>
-                                <property name="entry_text_column">0</property>
-                                <items>
-                                  <item id="switch-workspace" translatable="yes" context="Behavior when srolling on app-icon">Default</item>
-                                  <item id="cycle-windows" translatable="yes" context="Behavior when scrolling on app-icon">Cycle through windows</item>
-                                  <item id="do-nothing" translatable="yes" context="Behavior when scolling on app-icon">None</item>
-                                </items>
-                              </object>
-                            </child>
+                            <property name="valign">center</property>
+                            <property name="entry_text_column">0</property>
+                            <items>
+                              <item id="switch-workspace" translatable="yes" context="Behavior when srolling on app-icon">Default</item>
+                              <item id="cycle-windows" translatable="yes" context="Behavior when scrolling on app-icon">Cycle through windows</item>
+                              <item id="do-nothing" translatable="yes" context="Behavior when scolling on app-icon">None</item>
+                            </items>
                           </object>
                         </child>
                       </object>
