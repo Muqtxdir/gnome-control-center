@@ -506,7 +506,7 @@ cc_ubuntu_panel_class_init (CcUbuntuPanelClass *klass)
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showtrash_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_show_apps_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_movetop_button);
-   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_general_listbox);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_general_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_behavior_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_launcher_listbox);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_position_listbox);

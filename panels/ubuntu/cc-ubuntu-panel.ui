@@ -69,7 +69,7 @@
                                         <property name="visible">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="halign">center</property>
-                                        <property name="margin">12</property>
+                                        <property name="margin">18</property>
                                         <property name="resource">/org/gnome/control-center/ubuntu/assets/panel-mode.svg</property>
                                       </object>
                                     </child>
@@ -107,7 +107,7 @@
                                         <property name="visible">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="halign">center</property>
-                                        <property name="margin">12</property>
+                                        <property name="margin">18</property>
                                         <property name="resource">/org/gnome/control-center/ubuntu/assets/dock-mode.svg</property>
                                       </object>
                                     </child>
@@ -161,7 +161,7 @@
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="halign">center</property>
-                                <property name="margin">12</property>
+                                <property name="margin">18</property>
                                 <property name="resource">/org/gnome/control-center/ubuntu/assets/auto-hide.svg</property>
                               </object>
                             </child>

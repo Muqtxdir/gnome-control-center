@@ -72,7 +72,7 @@
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="halign">center</property>
-                                <property name="margin">12</property>
+                                <property name="margin">18</property>
                                 <property name="resource">/org/gnome/control-center/multitasking/assets/hot-corner.svg</property>
                               </object>
                             </child>
@@ -110,7 +110,7 @@
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="halign">center</property>
-                                <property name="margin">12</property>
+                                <property name="margin">18</property>
                                 <property name="resource">/org/gnome/control-center/multitasking/assets/active-screen-edges.svg</property>
                               </object>
                             </child>
@@ -249,7 +249,7 @@
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="halign">center</property>
-                                <property name="margin">12</property>
+                                <property name="margin">18</property>
                                 <property name="resource">/org/gnome/control-center/multitasking/assets/workspaces-primary-display.svg</property>
                               </object>
                             </child>
@@ -287,7 +287,7 @@
                                 <property name="visible">True</property>
                                 <property name="hexpand">True</property>
                                 <property name="halign">center</property>
-                                <property name="margin">12</property>
+                                <property name="margin">18</property>
                                 <property name="resource">/org/gnome/control-center/multitasking/assets/workspaces-span-displays.svg</property>
                               </object>
                             </child>
