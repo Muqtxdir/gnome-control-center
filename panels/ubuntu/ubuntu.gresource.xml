@@ -6,5 +6,6 @@
     <!-- Assets -->
     <file>assets/auto-hide.svg</file>
     <file>assets/panel-mode.svg</file>
+    <file>assets/dock-mode.svg</file>
   </gresource>
 </gresources>

@@ -64,7 +64,7 @@
                             <property name="margin_start">12</property>
                             <property name="margin_end">12</property>
                             <style>
-                              <class name="content-view"/>
+                              <class name="background"/>
                               <class name="frame"/>
                             </style>
                             <child>
@@ -102,7 +102,7 @@
                             <property name="margin_start">12</property>
                             <property name="margin_end">12</property>
                             <style>
-                              <class name="content-view"/>
+                              <class name="background"/>
                               <class name="frame"/>
                             </style>
                             <child>
@@ -241,7 +241,7 @@
                             <property name="margin_start">12</property>
                             <property name="margin_end">12</property>
                             <style>
-                              <class name="content-view"/>
+                              <class name="background"/>
                               <class name="frame"/>
                             </style>
                             <child>
@@ -279,7 +279,7 @@
                             <property name="margin_start">12</property>
                             <property name="margin_end">12</property>
                             <style>
-                              <class name="content-view"/>
+                              <class name="background"/>
                               <class name="frame"/>
                             </style>
                             <child>
