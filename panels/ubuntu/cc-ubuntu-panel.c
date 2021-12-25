@@ -48,7 +48,8 @@ struct _CcUbuntuPanel {
   CcPanel                 parent_instance;
 
   GtkSwitch              *dock_autohide_switch;
-  GtkSwitch              *dock_extendheight_switch;
+  GtkToggleButton        *dock_panelmode_radio;
+  GtkToggleButton        *dock_dockmode_radio;
   GtkCheckButton         *dock_showmounted_button;
   GtkCheckButton         *dock_showtrash_button;
   GtkSwitch              *dock_show_apps_switch;
@@ -499,7 +500,8 @@ cc_ubuntu_panel_class_init (CcUbuntuPanelClass *klass)
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/control-center/ubuntu/cc-ubuntu-panel.ui");
 
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_autohide_switch);
-  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_extendheight_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_panelmode_radio);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_dockmode_radio);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showmounted_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_showtrash_button);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_show_apps_switch);
@@ -602,6 +604,16 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
                            G_CALLBACK (update_dock_placement_combo_selection), self, G_CONNECT_SWAPPED);
   g_signal_connect_object (self->dock_settings, "changed::" UBUNTU_DOCK_ON_MONITOR_KEY,
                            G_CALLBACK (update_dock_placement_combo_selection), self, G_CONNECT_SWAPPED);
+  if (g_settings_get_boolean (self->dock_settings, "extend-height"))
+    gtk_toggle_button_set_active (self->dock_panelmode_radio, TRUE);
+  else
+    gtk_toggle_button_set_active (self->dock_dockmode_radio, TRUE);
+
+  g_settings_bind (self->dock_settings,
+                   "extend-height",
+                   self->dock_panelmode_radio,
+                   "active",
+                   G_SETTINGS_BIND_DEFAULT);
   g_settings_bind_with_mapping (self->dock_settings, "dock-position",
                                 self->dock_position_combo, "active-id",
                                 G_SETTINGS_BIND_DEFAULT,
@@ -617,9 +629,6 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   g_settings_bind (self->dock_settings, "dock-fixed",
                    self->dock_autohide_switch, "active",
                    G_SETTINGS_BIND_INVERT_BOOLEAN);
-  g_settings_bind (self->dock_settings, "extend-height",
-                   self->dock_extendheight_switch, "active",
-                   G_SETTINGS_BIND_DEFAULT);
   g_settings_bind (self->dock_settings, "show-mounts",
                    self->dock_showmounted_button, "active",
                    G_SETTINGS_BIND_DEFAULT);
