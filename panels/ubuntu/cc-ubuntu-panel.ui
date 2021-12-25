@@ -119,7 +119,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="valign">center</property>
-                                    <property name="margin_start">12</property>
                                     <property name="margin_end">12</property>
                                     <property name="margin_bottom">12</property>
                                     <property name="group">dock_panelmode_radio</property>
