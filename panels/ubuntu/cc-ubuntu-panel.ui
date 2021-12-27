@@ -133,50 +133,27 @@
                   </object>
                 </child>
                 <child>
-                  <object class="HdyPreferencesRow">
-                    <property name="visible">true</property>
+                  <object class="CcMultitaskingRow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="activatable-widget">dock_autohide_switch</property>
+                    <property name="title" translatable="yes">Auto-hide the dock</property>
+                    <property name="subtitle" translatable="yes">The dock hides when any windows overlap with it.</property>
+                    <property name="use_underline">True</property>
                     <child>
-                      <object class="GtkBox">
-                        <property name="visible">true</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="HdyActionRow">
-                            <property name="visible">true</property>
-                            <property name="title" translatable="yes">Auto-hide the dock</property>
-                            <property name="subtitle" translatable="yes">The dock hides when any windows overlap with it.</property>
-                            <property name="activatable-widget">dock_autohide_switch</property>
-                            <property name="use-underline">true</property>
-                            <child>
-                              <object class="GtkSwitch" id="dock_autohide_switch">
-                                <property name="visible">true</property>
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
-                            <property name="margin_bottom">12</property>
-                            <property name="margin_start">12</property>
-                            <property name="margin_end">12</property>
-                            <style>
-                              <class name="background"/>
-                              <class name="frame"/>
-                            </style>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="hexpand">True</property>
-                                <property name="halign">center</property>
-                                <property name="margin">18</property>
-                                <property name="resource">/org/gnome/control-center/ubuntu/assets/auto-hide.svg</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
+                      <object class="GtkSwitch" id="dock_autohide_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="valign">center</property>
+                      </object>
+                    </child>
+                    <child type="artwork">
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="hexpand">True</property>
+                        <property name="halign">center</property>
+                        <property name="margin">18</property>
+                        <property name="resource">/org/gnome/control-center/ubuntu/assets/auto-hide.svg</property>
                       </object>
                     </child>
                   </object>

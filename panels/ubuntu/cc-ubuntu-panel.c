@@ -34,6 +34,7 @@
 
 #include "panels/display/cc-display-config-manager-dbus.h"
 #include "panels/display/cc-display-config.h"
+#include "panels/multitasking/cc-multitasking-row.h"
 
 #define MIN_ICONSIZE 16.0
 #define MAX_ICONSIZE 64.0
