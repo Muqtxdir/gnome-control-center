@@ -15,457 +15,525 @@
             <property name="margin_bottom">32</property>
             <property name="margin_start">12</property>
             <property name="margin_end">12</property>
+
             <!-- Ubuntu Dock -->
             <child>
               <object class="GtkBox">
                 <property name="visible">true</property>
                 <property name="orientation">vertical</property>
                 <property name="hexpand">1</property>
-                <property name="spacing">12</property>
 
                 <child>
-                  <object class="GtkLabel">
-                    <property name="visible">true</property>
-                    <property name="label" translatable="yes">Visibility</property>
-                    <property name="xalign">0</property>
-                    <attributes>
-                      <attribute name="weight" value="bold" />
-                    </attributes>
-                  </object>
-                </child>
-
-                <child>
-                  <object class="GtkListBox" id="dock_general_listbox">
-                    <property name="visible">true</property>
-                    <property name="can-focus">1</property>
-                    <property name="selection-mode">none</property>
-                    <property name="margin_bottom">12</property>
+                  <object class="GtkRevealer">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="reveal-child" bind-source="dock_switch" bind-property="active" bind-flags="invert-boolean|sync-create"/>
                     <child>
-                      <object class="HdyActionRow">
-                        <property name="visible">true</property>
-                        <property name="title" translatable="yes">Layout</property>
-                         <property name="subtitle" translatable="yes">Choose the layout of the dock.</property>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="expand">True</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkGrid">
-                            <property name="visible">1</property>
-                            <property name="row_homogeneous">1</property>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="margin_bottom">12</property>
-                                    <property name="margin_start">12</property>
-                                    <property name="margin_end">12</property>
-                                    <style>
-                                      <class name="background"/>
-                                      <class name="frame"/>
-                                    </style>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="visible">True</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="halign">center</property>
-                                        <property name="margin">18</property>
-                                        <property name="resource">/org/gnome/control-center/ubuntu/assets/panel-mode.svg</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="dock_panelmode_radio">
-                                    <property name="label" translatable="yes">Extended</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="valign">center</property>
-                                    <property name="margin_start">12</property>
-                                    <property name="margin_end">12</property>
-                                    <property name="margin_bottom">12</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkBox">
-                                <property name="visible">True</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkBox">
-                                    <property name="visible">True</property>
-                                    <property name="orientation">vertical</property>
-                                    <property name="margin_bottom">12</property>
-                                    <property name="margin_end">12</property>
-                                    <style>
-                                      <class name="background"/>
-                                      <class name="frame"/>
-                                    </style>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="visible">True</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="halign">center</property>
-                                        <property name="margin">18</property>
-                                        <property name="resource">/org/gnome/control-center/ubuntu/assets/dock-mode.svg</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="dock_dockmode_radio">
-                                    <property name="label" translatable="yes">Compact</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="valign">center</property>
-                                    <property name="margin_end">12</property>
-                                    <property name="margin_bottom">12</property>
-                                    <property name="group">dock_panelmode_radio</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">org.gnome.Settings-ubuntudock-symbolic</property>
+                            <property name="pixel_size">256</property>
+                            <property name="margin-bottom">12</property>
+                            <style>
+                              <class name="dim-label" />
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Dock Turned Off</property>
+                            <property name="margin-bottom">6</property>
+                            <attributes>
+                              <attribute name="weight" value="bold" />
+                              <attribute name="scale" value="1.2" />
+                            </attributes>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="wrap">True</property>
+                            <property name="label" translatable="yes">Turn on to use Ubuntu-dock</property>
                           </object>
                         </child>
                       </object>
                     </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkRevealer">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="reveal-child" bind-source="dock_switch" bind-property="active" bind-flags="default|sync-create"/>
+
                     <child>
-                      <object class="HdyActionRow">
+                      <object class="GtkBox">
                         <property name="visible">true</property>
-                        <property name="title" translatable="yes">Auto-hide the dock</property>
-                        <property name="subtitle" translatable="yes">The dock hides when any windows overlap with it.</property>
-                        <property name="activatable-widget">dock_autohide_switch</property>
-                        <property name="use-underline">true</property>
-                        <child type="action">
-                          <object class="GtkSwitch" id="dock_autohide_switch">
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">12</property>
+
+                        <child>
+                          <object class="GtkLabel">
                             <property name="visible">true</property>
-                            <property name="halign">end</property>
-                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">General</property>
+                            <property name="xalign">0</property>
+                            <attributes>
+                              <attribute name="weight" value="bold" />
+                            </attributes>
                           </object>
                         </child>
+        
                         <child>
-                          <object class="GtkBox">
-                            <property name="visible">True</property>
-                            <property name="orientation">vertical</property>
+                          <object class="GtkListBox" id="dock_general_listbox">
+                            <property name="visible">true</property>
+                            <property name="can-focus">1</property>
+                            <property name="selection-mode">none</property>
                             <property name="margin_bottom">12</property>
-                            <property name="margin_start">12</property>
-                            <property name="margin_end">12</property>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="visible">true</property>
+                                <property name="title" translatable="yes">Layout</property>
+                                <property name="subtitle" translatable="yes">Choose the layout of the dock.</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">1</property>
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">vertical</property>
+                                        <child>
+                                          <object class="GtkBox">
+                                            <property name="visible">True</property>
+                                            <property name="orientation">vertical</property>
+                                            <property name="margin_bottom">12</property>
+                                            <property name="margin_start">12</property>
+                                            <property name="margin_end">12</property>
+                                            <style>
+                                              <class name="background"/>
+                                              <class name="frame"/>
+                                            </style>
+                                            <child>
+                                              <object class="GtkImage">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="halign">center</property>
+                                                <property name="margin">18</property>
+                                                <property name="resource">/org/gnome/control-center/ubuntu/assets/panel-mode.svg</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkRadioButton" id="dock_panelmode_radio">
+                                            <property name="label" translatable="yes">Extended</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="valign">center</property>
+                                            <property name="margin_start">12</property>
+                                            <property name="margin_end">12</property>
+                                            <property name="margin_bottom">12</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property name="visible">True</property>
+                                        <property name="orientation">vertical</property>
+                                        <child>
+                                          <object class="GtkBox">
+                                            <property name="visible">True</property>
+                                            <property name="orientation">vertical</property>
+                                            <property name="margin_bottom">12</property>
+                                            <property name="margin_end">12</property>
+                                            <style>
+                                              <class name="background"/>
+                                              <class name="frame"/>
+                                            </style>
+                                            <child>
+                                              <object class="GtkImage">
+                                                <property name="visible">True</property>
+                                                <property name="hexpand">True</property>
+                                                <property name="halign">center</property>
+                                                <property name="margin">18</property>
+                                                <property name="resource">/org/gnome/control-center/ubuntu/assets/dock-mode.svg</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkRadioButton" id="dock_dockmode_radio">
+                                            <property name="label" translatable="yes">Compact</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="valign">center</property>
+                                            <property name="margin_end">12</property>
+                                            <property name="margin_bottom">12</property>
+                                            <property name="group">dock_panelmode_radio</property>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="visible">true</property>
+                                <property name="title" translatable="yes">Auto-hide the dock</property>
+                                <property name="subtitle" translatable="yes">The dock hides when any windows overlap with it.</property>
+                                <property name="activatable-widget">dock_autohide_switch</property>
+                                <property name="use-underline">true</property>
+                                <child type="action">
+                                  <object class="GtkSwitch" id="dock_autohide_switch">
+                                    <property name="visible">true</property>
+                                    <property name="halign">end</property>
+                                    <property name="valign">center</property>
+                                  </object>
+                                </child>
+                                <child>
+                                   <object class="GtkBox">
+                                     <property name="visible">True</property>
+                                     <property name="orientation">vertical</property>
+                                     <property name="margin_bottom">12</property>
+                                     <property name="margin_start">12</property>
+                                     <property name="margin_end">12</property>
+                                     <style>
+                                       <class name="background"/>
+                                       <class name="frame"/>
+                                     </style>
+                                     <child>
+                                       <object class="GtkImage">
+                                         <property name="visible">True</property>
+                                         <property name="hexpand">True</property>
+                                         <property name="halign">center</property>
+                                         <property name="margin">18</property>
+                                         <property name="resource">/org/gnome/control-center/ubuntu/assets/auto-hide.svg</property>
+                                       </object>
+                                     </child>
+                                   </object>
+                                 </child>
+                              </object>
+                            </child>
                             <style>
-                              <class name="background"/>
+                              <class name="view"/>
                               <class name="frame"/>
                             </style>
-                            <child>
-                              <object class="GtkImage">
-                                <property name="visible">True</property>
-                                <property name="hexpand">True</property>
-                                <property name="halign">center</property>
-                                <property name="margin">18</property>
-                                <property name="resource">/org/gnome/control-center/ubuntu/assets/auto-hide.svg</property>
-                              </object>
-                            </child>
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="view"/>
-                      <class name="frame"/>
-                    </style>
-                  </object>
-                </child>
-
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">true</property>
-                    <property name="label" translatable="yes">Behavior</property>
-                    <property name="xalign">0</property>
-                    <property name="margin_top">12</property>
-                    <attributes>
-                      <attribute name="weight" value="bold" />
-                    </attributes>
-                  </object>
-                </child>
-
-                <child>
-                  <object class="GtkListBox" id="dock_behavior_listbox">
-                    <property name="visible">true</property>
-                    <property name="can-focus">1</property>
-                    <property name="selection-mode">none</property>
-                    <property name="margin_bottom">12</property>
-                    <child>
-                      <object class="HdyActionRow">
-                        <property name="visible">true</property>
-                        <property name="title" translatable="yes">Click action</property>
-                        <property name="subtitle" translatable="yes">Behavior when clicking on app-icon.</property>
-                        <property name="activatable-widget">dock_clickaction_combo</property>
-                        <property name="use-underline">true</property>
-                        <child type="action">
-                          <object class="GtkComboBoxText" id="dock_clickaction_combo">
-                            <property name="visible">true</property>
-                            <property name="valign">center</property>
-                            <property name="entry_text_column">0</property>
-                            <items>
-                              <item id="focus-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Default</item>
-                              <item id="minimize" translatable="yes" context="Behavior when clicking on app-icon">Minimize</item>
-                              <item id="cycle-windows" translatable="yes" context="Behavior when clicking on app-icon">Cycle through windows</item>
-                              <item id="minimize-or-overview" translatable="yes" context="Behavior when clicking on app-icon">Minimize or overview</item>
-                              <item id="previews" translatable="yes" context="Behavior when clicking on app-icon">Show window previews</item>
-                              <item id="minimize-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Minimize or show previews</item>
-                            </items>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="HdyActionRow">
-                        <property name="visible">true</property>
-                        <property name="title" translatable="yes">Scroll action</property>
-                        <property name="subtitle" translatable="yes">Behavior when scrolling on an open app-icon.</property>
-                        <property name="activatable-widget">dock_scrollaction_combo</property>
-                        <property name="use-underline">true</property>
-                        <child type="action">
-                          <object class="GtkComboBoxText" id="dock_scrollaction_combo">
-                            <property name="visible">true</property>
-                            <property name="valign">center</property>
-                            <property name="entry_text_column">0</property>
-                            <items>
-                              <item id="switch-workspace" translatable="yes" context="Behavior when srolling on app-icon">Default</item>
-                              <item id="cycle-windows" translatable="yes" context="Behavior when scrolling on app-icon">Cycle through windows</item>
-                              <item id="do-nothing" translatable="yes" context="Behavior when scolling on app-icon">None</item>
-                            </items>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="view"/>
-                      <class name="frame"/>
-                    </style>
-                  </object>
-                </child>
-
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">true</property>
-                    <property name="label" translatable="yes">Position and Size</property>
-                    <property name="xalign">0</property>
-                    <property name="margin_top">12</property>
-                    <attributes>
-                      <attribute name="weight" value="bold" />
-                    </attributes>
-                  </object>
-                </child>
-
-                <child>
-                  <object class="GtkListBox" id="dock_position_listbox">
-                    <property name="visible">true</property>
-                    <property name="can-focus">1</property>
-                    <property name="selection-mode">none</property>
-                    <property name="margin_bottom">12</property>
-                    <child>
-                      <object class="GtkListBoxRow">
-                        <property name="visible">true</property>
+        
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkLabel">
                             <property name="visible">true</property>
-                            <property name="margin">12</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="visible">true</property>
-                                <property name="label" translatable="yes">Icon size</property>
-                                <property name="use_underline">1</property>
-                                <property name="mnemonic_widget">icon_size_scale</property>
-                                <property name="sensitive" bind-source="icon_size_scale" bind-property="sensitive"/>
-                                <property name="xalign">0</property>
-                                <property name="valign">center</property>
-                              </object>
-                              <packing>
-                                <property name="expand">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkScale" id="icon_size_scale">
-                                <property name="visible">True</property>
-                                <property name="adjustment">icon_size_adjustment</property>
-                                <property name="orientation">horizontal</property>
-                                <property name="value_pos">left</property>
-                                <property name="width_request">300</property>
-                                <property name="valign">center</property>
-                                <signal name="format-value" handler="on_icon_size_format_value" object="CcUbuntuPanel" swapped="yes"/>
-                              </object>
-                            </child>
+                            <property name="label" translatable="yes">Behavior</property>
+                            <property name="xalign">0</property>
+                            <property name="margin_top">12</property>
+                            <attributes>
+                              <attribute name="weight" value="bold" />
+                            </attributes>
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkListBoxRow">
-                        <property name="visible">true</property>
+        
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkListBox" id="dock_behavior_listbox">
                             <property name="visible">true</property>
-                            <property name="margin">12</property>
+                            <property name="can-focus">1</property>
+                            <property name="selection-mode">none</property>
+                            <property name="margin_bottom">12</property>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="HdyActionRow">
                                 <property name="visible">true</property>
-                                <property name="label" translatable="yes">Position on screen</property>
-                                <property name="use_underline">1</property>
-                                <property name="mnemonic_widget">dock_position_combo</property>
-                                <property name="sensitive" bind-source="dock_position_combo" bind-property="sensitive"/>
-                                <property name="xalign">0</property>
-                                <property name="valign">center</property>
+                                <property name="title" translatable="yes">Click action</property>
+                                <property name="subtitle" translatable="yes">Behavior when clicking on app-icon.</property>
+                                <property name="activatable-widget">dock_clickaction_combo</property>
+                                <property name="use-underline">true</property>
+                                <child type="action">
+                                  <object class="GtkComboBoxText" id="dock_clickaction_combo">
+                                    <property name="visible">true</property>
+                                    <property name="valign">center</property>
+                                    <property name="entry_text_column">0</property>
+                                    <items>
+                                      <item id="focus-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Default</item>
+                                      <item id="minimize" translatable="yes" context="Behavior when clicking on app-icon">Minimize</item>
+                                      <item id="cycle-windows" translatable="yes" context="Behavior when clicking on app-icon">Cycle through windows</item>
+                                      <item id="minimize-or-overview" translatable="yes" context="Behavior when clicking on app-icon">Minimize or overview</item>
+                                      <item id="previews" translatable="yes" context="Behavior when clicking on app-icon">Show window previews</item>
+                                      <item id="minimize-or-previews" translatable="yes" context="Behavior when clicking on app-icon">Minimize or show previews</item>
+                                    </items>
+                                  </object>
+                                </child>
                               </object>
-                              <packing>
-                                <property name="expand">1</property>
-                              </packing>
                             </child>
                             <child>
-                              <object class="GtkComboBoxText" id="dock_position_combo">
-                                <property name="visible">1</property>
-                                <property name="valign">center</property>
-                                <property name="entry_text_column">0</property>
-                                <items>
-                                  <item id="LEFT" translatable="yes" context="Position on screen for the Ubuntu dock">Left</item>
-                                  <item id="BOTTOM" translatable="yes" context="Position on screen for the Ubuntu dock">Bottom</item>
-                                  <item id="RIGHT" translatable="yes" context="Position on screen for the Ubuntu dock">Right</item>
-                                </items>
+                              <object class="HdyActionRow">
+                                <property name="visible">true</property>
+                                <property name="title" translatable="yes">Scroll action</property>
+                                <property name="subtitle" translatable="yes">Behavior when scrolling on an open app-icon.</property>
+                                <property name="activatable-widget">dock_scrollaction_combo</property>
+                                <property name="use-underline">true</property>
+                                <child type="action">
+                                  <object class="GtkComboBoxText" id="dock_scrollaction_combo">
+                                    <property name="visible">true</property>
+                                    <property name="valign">center</property>
+                                    <property name="entry_text_column">0</property>
+                                    <items>
+                                      <item id="switch-workspace" translatable="yes" context="Behavior when srolling on app-icon">Default</item>
+                                      <item id="cycle-windows" translatable="yes" context="Behavior when scrolling on app-icon">Cycle through windows</item>
+                                      <item id="do-nothing" translatable="yes" context="Behavior when scolling on app-icon">None</item>
+                                    </items>
+                                  </object>
+                                </child>
                               </object>
                             </child>
+                            <style>
+                              <class name="view"/>
+                              <class name="frame"/>
+                            </style>
                           </object>
                         </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkListBoxRow" id="dock_monitor_row">
-                        <property name="visible">true</property>
+        
                         <child>
-                          <object class="GtkBox">
+                          <object class="GtkLabel">
                             <property name="visible">true</property>
-                            <property name="margin">12</property>
+                            <property name="label" translatable="yes">Position and Size</property>
+                            <property name="xalign">0</property>
+                            <property name="margin_top">12</property>
+                            <attributes>
+                              <attribute name="weight" value="bold" />
+                            </attributes>
+                          </object>
+                        </child>
+        
+                        <child>
+                          <object class="GtkListBox" id="dock_position_listbox">
+                            <property name="visible">true</property>
+                            <property name="can-focus">1</property>
+                            <property name="selection-mode">none</property>
+                            <property name="margin_bottom">12</property>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="GtkListBoxRow">
                                 <property name="visible">true</property>
-                                <property name="label" translatable="yes">Show on</property>
-                                <property name="use_underline">1</property>
-                                <property name="mnemonic_widget">dock_placement_combo</property>
-                                <property name="sensitive" bind-source="dock_placement_combo" bind-property="sensitive"/>
-                                <property name="xalign">0</property>
-                                <property name="valign">center</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">true</property>
+                                    <property name="margin">12</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">true</property>
+                                        <property name="label" translatable="yes">Icon size</property>
+                                        <property name="use_underline">1</property>
+                                        <property name="mnemonic_widget">icon_size_scale</property>
+                                        <property name="sensitive" bind-source="icon_size_scale" bind-property="sensitive"/>
+                                        <property name="xalign">0</property>
+                                        <property name="valign">center</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkScale" id="icon_size_scale">
+                                        <property name="visible">True</property>
+                                        <property name="adjustment">icon_size_adjustment</property>
+                                        <property name="orientation">horizontal</property>
+                                        <property name="value_pos">left</property>
+                                        <property name="width_request">300</property>
+                                        <property name="valign">center</property>
+                                        <signal name="format-value" handler="on_icon_size_format_value" object="CcUbuntuPanel" swapped="yes"/>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
                               </object>
-                              <packing>
-                                <property name="expand">1</property>
-                              </packing>
                             </child>
                             <child>
-                            <object class="GtkComboBox" id="dock_placement_combo">
-                              <property name="visible">True</property>
-                              <property name="model">dock_placement_liststore</property>
-                              <property name="valign">center</property>
-                              <signal name="changed" handler="on_dock_placement_combo_changed" object="CcUbuntuPanel" swapped="yes"/>
+                              <object class="GtkListBoxRow">
+                                <property name="visible">true</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">true</property>
+                                    <property name="margin">12</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">true</property>
+                                        <property name="label" translatable="yes">Position on screen</property>
+                                        <property name="use_underline">1</property>
+                                        <property name="mnemonic_widget">dock_position_combo</property>
+                                        <property name="sensitive" bind-source="dock_position_combo" bind-property="sensitive"/>
+                                        <property name="xalign">0</property>
+                                        <property name="valign">center</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="dock_position_combo">
+                                        <property name="visible">1</property>
+                                        <property name="valign">center</property>
+                                        <property name="entry_text_column">0</property>
+                                        <items>
+                                          <item id="LEFT" translatable="yes" context="Position on screen for the Ubuntu dock">Left</item>
+                                          <item id="BOTTOM" translatable="yes" context="Position on screen for the Ubuntu dock">Bottom</item>
+                                          <item id="RIGHT" translatable="yes" context="Position on screen for the Ubuntu dock">Right</item>
+                                        </items>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkListBoxRow" id="dock_monitor_row">
+                                <property name="visible">true</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="visible">true</property>
+                                    <property name="margin">12</property>
+                                    <child>
+                                      <object class="GtkLabel">
+                                        <property name="visible">true</property>
+                                        <property name="label" translatable="yes">Show on</property>
+                                        <property name="use_underline">1</property>
+                                        <property name="mnemonic_widget">dock_placement_combo</property>
+                                        <property name="sensitive" bind-source="dock_placement_combo" bind-property="sensitive"/>
+                                        <property name="xalign">0</property>
+                                        <property name="valign">center</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                    <object class="GtkComboBox" id="dock_placement_combo">
+                                      <property name="visible">True</property>
+                                      <property name="model">dock_placement_liststore</property>
+                                      <property name="valign">center</property>
+                                      <signal name="changed" handler="on_dock_placement_combo_changed" object="CcUbuntuPanel" swapped="yes"/>
+                                      <child>
+                                        <object class="GtkCellRendererText"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                      </child>
+                                    </object>
+                                  </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="view"/>
+                              <class name="frame"/>
+                            </style>
+                          </object>
+                        </child>
+        
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">true</property>
+                            <property name="label" translatable="yes">Other</property>
+                            <property name="xalign">0</property>
+                            <property name="margin_top">12</property>
+                            <attributes>
+                              <attribute name="weight" value="bold" />
+                            </attributes>
+                          </object>
+                        </child>
+        
+                        <child>
+                          <object class="GtkListBox" id="dock_launcher_listbox">
+                            <property name="visible">true</property>
+                            <property name="can-focus">1</property>
+                            <property name="selection-mode">none</property>
+                            <property name="margin_bottom">12</property>
+                            <child>
+                              <object class="HdyActionRow">
+                                <property name="visible">true</property>
+                                <property name="title" translatable="yes">Show applications button</property>
+                                <property name="activatable-widget">dock_show_apps_switch</property>
+                                <property name="use-underline">true</property>
+                                <child type="action">
+                                  <object class="GtkSwitch" id="dock_show_apps_switch">
+                                    <property name="visible">true</property>
+                                    <property name="halign">end</property>
+                                    <property name="valign">center</property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                            <object class="GtkGrid">
+                              <property name="visible">1</property>
+                              <property name="row_homogeneous">1</property>
+                              <property name="margin">12</property>
+                              <property name="column_spacing">18</property>
+                              <property name="row_spacing">12</property>
                               <child>
-                                <object class="GtkCellRendererText"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
+                                <object class="GtkCheckButton" id="dock_movetop_button">
+                                  <property name="label" translatable="yes">Move applications button at the beginning of the dock</property>
+                                  <property name="sensitive" bind-source="dock_show_apps_switch" bind-property="active" bind-flags="default|sync-create" />
+                                  <property name="visible">1</property>
+                                  <property name="can_focus">1</property>
+                                  <property name="active">1</property>
+                                </object>
+                                <packing>
+                                  <property name="left_attach">0</property>
+                                  <property name="top_attach">0</property>
+                                </packing>
+                              </child>
+                              <child>
+                                <object class="GtkCheckButton" id="dock_showmounted_button">
+                                  <property name="label" translatable="yes">Show mounted volumes and devices</property>
+                                  <property name="visible">1</property>
+                                  <property name="can_focus">1</property>
+                                </object>
+                                <packing>
+                                  <property name="left_attach">0</property>
+                                  <property name="top_attach">1</property>
+                                </packing>
+                              </child>
+                              <child>
+                                <object class="GtkCheckButton" id="dock_showtrash_button">
+                                  <property name="label" translatable="yes">Show trash can</property>
+                                  <property name="visible">1</property>
+                                  <property name="can_focus">1</property>
+                                </object>
+                                <packing>
+                                  <property name="left_attach">0</property>
+                                  <property name="top_attach">2</property>
+                                </packing>
                               </child>
                             </object>
+                            <packing>
+                              <property name="fill">0</property>
+                            </packing>
                           </child>
+                          <style>
+                              <class name="view"/>
+                              <class name="frame"/>
+                            </style>
                           </object>
                         </child>
+
                       </object>
                     </child>
-                    <style>
-                      <class name="view"/>
-                      <class name="frame"/>
-                    </style>
-                  </object>
-                </child>
 
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">true</property>
-                    <property name="label" translatable="yes">Other</property>
-                    <property name="xalign">0</property>
-                    <property name="margin_top">12</property>
-                    <attributes>
-                      <attribute name="weight" value="bold" />
-                    </attributes>
-                  </object>
-                </child>
-
-                <child>
-                  <object class="GtkListBox" id="dock_launcher_listbox">
-                    <property name="visible">true</property>
-                    <property name="can-focus">1</property>
-                    <property name="selection-mode">none</property>
-                    <property name="margin_bottom">12</property>
-                    <child>
-                      <object class="HdyActionRow">
-                        <property name="visible">true</property>
-                        <property name="title" translatable="yes">Show applications button</property>
-                        <property name="activatable-widget">dock_show_apps_switch</property>
-                        <property name="use-underline">true</property>
-                        <child type="action">
-                          <object class="GtkSwitch" id="dock_show_apps_switch">
-                            <property name="visible">true</property>
-                            <property name="halign">end</property>
-                            <property name="valign">center</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                    <object class="GtkGrid">
-                      <property name="visible">1</property>
-                      <property name="row_homogeneous">1</property>
-                      <property name="margin">12</property>
-                      <property name="column_spacing">18</property>
-                      <property name="row_spacing">12</property>
-                      <child>
-                        <object class="GtkCheckButton" id="dock_movetop_button">
-                          <property name="label" translatable="yes">Move applications button at the beginning of the dock</property>
-                          <property name="sensitive" bind-source="dock_show_apps_switch" bind-property="active" bind-flags="default|sync-create" />
-                          <property name="visible">1</property>
-                          <property name="can_focus">1</property>
-                          <property name="active">1</property>
-                        </object>
-                        <packing>
-                          <property name="left_attach">0</property>
-                          <property name="top_attach">0</property>
-                        </packing>
-                      </child>
-                      <child>
-                        <object class="GtkCheckButton" id="dock_showmounted_button">
-                          <property name="label" translatable="yes">Show mounted volumes and devices</property>
-                          <property name="visible">1</property>
-                          <property name="can_focus">1</property>
-                        </object>
-                        <packing>
-                          <property name="left_attach">0</property>
-                          <property name="top_attach">1</property>
-                        </packing>
-                      </child>
-                      <child>
-                        <object class="GtkCheckButton" id="dock_showtrash_button">
-                          <property name="label" translatable="yes">Show trash can</property>
-                          <property name="visible">1</property>
-                          <property name="can_focus">1</property>
-                        </object>
-                        <packing>
-                          <property name="left_attach">0</property>
-                          <property name="top_attach">2</property>
-                        </packing>
-                      </child>
-                    </object>
-                    <packing>
-                      <property name="fill">0</property>
-                    </packing>
-                  </child>
-                  <style>
-                      <class name="view"/>
-                      <class name="frame"/>
-                    </style>
                   </object>
                 </child>
               </object>
@@ -474,7 +542,26 @@
         </child>
       </object>
     </child>
-  </template>    
+  </template>
+  <object class="GtkBox" id="dock_header_box">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkSwitch" id="dock_switch">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="valign">center</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="padding">4</property>
+        <property name="pack_type">end</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
+  </object>
   <object class="GtkAdjustment" id="icon_size_adjustment">
     <property name="step_increment">1</property>
     <property name="page_increment">4</property>
