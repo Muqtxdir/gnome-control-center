@@ -45,9 +45,13 @@
 #define UBUNTU_DOCK_ALL_MONITORS_KEY "multi-monitor"
 #define UBUNTU_DOCK_ON_MONITOR_KEY "preferred-monitor"
 
+#define JUST_PERFECTION_SCHEMA "org.gnome.shell.extensions.just-perfection"
+
 struct _CcUbuntuPanel {
   CcPanel                 parent_instance;
-
+  
+  GtkBox                 *dock_header_box;
+  GtkSwitch              *dock_switch;
   GtkSwitch              *dock_autohide_switch;
   GtkToggleButton        *dock_panelmode_radio;
   GtkToggleButton        *dock_dockmode_radio;
@@ -68,6 +72,7 @@ struct _CcUbuntuPanel {
   GtkAdjustment          *icon_size_adjustment;
   GtkScale               *icon_size_scale;
 
+  GSettings              *just_perfection_settings;
   GSettings              *dock_settings;
   CcDisplayConfigManager *display_config_manager;
   GDBusProxy             *shell_proxy;
@@ -79,6 +84,18 @@ static void monitor_labeler_hide (CcUbuntuPanel *self);
 static void update_dock_placement_combo_selection (CcUbuntuPanel *self);
 
 static void
+cc_ubuntu_panel_constructed (GObject *object)
+{
+	CcUbuntuPanel *self = CC_UBUNTU_PANEL (object);
+
+	G_OBJECT_CLASS (cc_ubuntu_panel_parent_class)->constructed (object);
+
+	/* add kill switch widgets  */
+	cc_shell_embed_widget_in_header (cc_panel_get_shell (CC_PANEL (self)),
+					 GTK_WIDGET (self->dock_header_box), GTK_POS_RIGHT);
+}
+
+static void
 cc_ubuntu_panel_dispose (GObject *object)
 {
   CcUbuntuPanel *self = CC_UBUNTU_PANEL (object);
@@ -86,6 +103,7 @@ cc_ubuntu_panel_dispose (GObject *object)
   monitor_labeler_hide (self);
 
   g_clear_object (&self->dock_settings);
+  g_clear_object (&self->just_perfection_settings);
   g_clear_object (&self->display_config_manager);
   g_clear_object (&self->shell_proxy);
 
@@ -496,10 +514,13 @@ cc_ubuntu_panel_class_init (CcUbuntuPanelClass *klass)
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
+  object_class->constructed = cc_ubuntu_panel_constructed;
   object_class->dispose = cc_ubuntu_panel_dispose;
 
   gtk_widget_class_set_template_from_resource (widget_class, "/org/gnome/control-center/ubuntu/cc-ubuntu-panel.ui");
 
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_header_box);
+  gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_autohide_switch);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_panelmode_radio);
   gtk_widget_class_bind_template_child (widget_class, CcUbuntuPanel, dock_dockmode_radio);
@@ -586,6 +607,7 @@ static void
 cc_ubuntu_panel_init (CcUbuntuPanel *self)
 {
   g_autoptr(GSettingsSchema) schema = NULL;
+  g_autoptr(GSettingsSchema) just_perfection_schema = NULL;
 
   g_resources_register (cc_ubuntu_get_resource ());
 
@@ -665,6 +687,19 @@ cc_ubuntu_panel_init (CcUbuntuPanel *self)
   g_signal_connect (self, "map", G_CALLBACK (mapped_cb), NULL);
 
   g_bus_get (G_BUS_TYPE_SESSION, NULL, session_bus_ready, self);
+  
+   /* Only load if we have just-perfection installed */
+  just_perfection_schema = g_settings_schema_source_lookup (g_settings_schema_source_get_default (), JUST_PERFECTION_SCHEMA, TRUE);
+  if (!just_perfection_schema)
+    {
+      g_warning ("Just-Perfection is not installed here. Panel disabled. Please fix your installation.");
+      return;
+    }
+                   
+  self->just_perfection_settings = g_settings_new_full (just_perfection_schema, NULL, NULL);
+  g_settings_bind (self->just_perfection_settings, "dash",
+                   self->dock_switch, "active",
+                   G_SETTINGS_BIND_DEFAULT);
 }
 
 void
