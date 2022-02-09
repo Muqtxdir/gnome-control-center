@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="CcUbuntuDockDialog" parent="GtkDialog">
+    <property name="width_request">360</property>
+    <property name="can_focus">False</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <signal name="response" handler="gtk_widget_destroy" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <property name="border_width">0</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkListBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="selection_mode">none</property>
+            <property name="activate_on_single_click">True</property>
+
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Show _Volumes and _Devices</property>
+                <property name="activatable">True</property>
+                <property name="activatable_widget">volumes_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="volumes_switch">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="HdyActionRow" id="unmounted_row">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes" context="ubuntu-dock">Include _Unmounted Volumes</property>
+                <property name="activatable">True</property>
+                <property name="activatable_widget">unmounted_check</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="unmounted_check">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="margin_left">12</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="HdyActionRow" id="network_volumes_row">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes" context="ubuntu-dock">Include _Network Volumes</property>
+                <property name="activatable">True</property>
+                <property name="activatable_widget">network_volumes_check</property>
+                <child type="prefix">
+                  <object class="GtkCheckButton" id="network_volumes_check">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="margin_left">12</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="use_underline">True</property>
+                <property name="can_focus">True</property>
+                <property name="title" translatable="yes">Show _Trash</property>
+                <property name="activatable">True</property>
+                <property name="activatable_widget">trash_switch</property>
+                <child>
+                  <object class="GtkSwitch" id="trash_switch">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

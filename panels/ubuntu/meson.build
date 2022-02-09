@@ -8,7 +8,6 @@ desktop_in = configure_file(
 )
 
 i18n.merge_file(
-  desktop,
   type: 'desktop',
   input: desktop_in,
   output: desktop,
@@ -17,9 +16,26 @@ i18n.merge_file(
   install_dir: control_center_desktopdir
 )
 
-sources = files('cc-ubuntu-panel.c')
+sources = files(
+  'cc-ubuntu-panel.c',
+  'cc-ubuntu-dock-dialog.c',
+)
 
-resource_data = files('cc-ubuntu-panel.ui',)
+resource_data = files(
+  'appearance.css',
+  'assets/theme-dark.svg',
+  'assets/theme-light.svg',
+  'assets/colors/orange.svg',
+  'assets/colors/aqua.svg',
+  'assets/colors/blue.svg',
+  'assets/colors/green.svg',
+  'assets/colors/purple.svg',
+  'assets/colors/pink.svg',
+  'assets/colors/red.svg',
+  'assets/colors/yellow.svg',
+  'cc-ubuntu-panel.ui',
+  'cc-ubuntu-dock-dialog.ui',
+)
 
 sources += gnome.compile_resources(
   'cc-' + cappletname + '-resources',
@@ -38,5 +54,3 @@ panels_libs += static_library(
   dependencies: common_deps,
   c_args: cflags
 )
-
-subdir('icons')

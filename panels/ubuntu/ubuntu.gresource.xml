@@ -2,10 +2,17 @@
 <gresources>
   <gresource prefix="/org/gnome/control-center/ubuntu">
     <file preprocess="xml-stripblanks">cc-ubuntu-panel.ui</file>
-    
-    <!-- Assets -->
-    <file>assets/auto-hide.svg</file>
-    <file>assets/panel-mode.svg</file>
-    <file>assets/dock-mode.svg</file>
+    <file preprocess="xml-stripblanks">cc-ubuntu-dock-dialog.ui</file>
+    <file>appearance.css</file>
+    <file>assets/theme-dark.svg</file>
+    <file>assets/theme-light.svg</file>
+    <file>assets/colors/orange.svg</file>
+    <file>assets/colors/aqua.svg</file>
+    <file>assets/colors/blue.svg</file>
+    <file>assets/colors/green.svg</file>
+    <file>assets/colors/purple.svg</file>
+    <file>assets/colors/pink.svg</file>
+    <file>assets/colors/red.svg</file>
+    <file>assets/colors/yellow.svg</file>
   </gresource>
 </gresources>

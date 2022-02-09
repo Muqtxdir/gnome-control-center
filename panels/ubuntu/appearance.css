@@ -1,0 +1,24 @@
+flowboxchild.appearance-preview {
+  border-radius: 9px;
+}
+
+box.appearance-preview {
+  border-radius: 6px;
+}
+
+image.appearance-thumbnail {
+  border-radius: 6px;
+  background: shade(@theme_selected_bg_color, 1.1);
+}
+
+flowboxchild.colors {
+  border-radius: 9999px;
+}
+
+box.colors {
+  border-radius: 9999px;
+}
+
+image.colors-thumbnail {
+  border-radius: 9999px;
+}

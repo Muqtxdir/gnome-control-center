@@ -62,12 +62,12 @@ struct _CcSoundPanel
   GtkListStore      *output_device_model;
   CcLevelBar        *output_level_bar;
   GtkListBox        *output_list_box;
-  GtkListBox        *ubuntu_output_box;
   CcProfileComboBox *output_profile_combo_box;
   GtkListBoxRow     *output_profile_row;
   CcVolumeSlider    *output_volume_slider;
   CcVolumeSlider    *output_volume_slider_ubuntu;
   GtkWidget         *allow_amplify_switch;
+  GtkWidget         *ubuntu_output_frame;
   CcStreamListBox   *stream_list_box;
   GtkListBoxRow     *subwoofer_row;
   CcSubwooferSlider *subwoofer_slider;
@@ -262,12 +262,12 @@ cc_sound_panel_class_init (CcSoundPanelClass *klass)
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_device_combo_box);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_level_bar);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_list_box);
-  gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, ubuntu_output_box);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_profile_combo_box);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_profile_row);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_volume_slider);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, output_volume_slider_ubuntu);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, allow_amplify_switch);
+  gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, ubuntu_output_frame);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, stream_list_box);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, subwoofer_row);
   gtk_widget_class_bind_template_child (widget_class, CcSoundPanel, subwoofer_slider);
@@ -294,16 +294,6 @@ cc_sound_panel_init (CcSoundPanel *self)
 
   gtk_widget_init_template (GTK_WIDGET (self));
 
-  gtk_list_box_set_header_func (self->input_list_box,
-                                cc_list_box_update_header_func,
-                                NULL, NULL);
-  gtk_list_box_set_header_func (self->output_list_box,
-                                cc_list_box_update_header_func,
-                                NULL, NULL);
-  gtk_list_box_set_header_func (GTK_LIST_BOX (self->stream_list_box),
-                                cc_list_box_update_header_func,
-                                NULL, NULL);
-
   self->sound_settings = g_settings_new (KEY_SOUNDS_SCHEMA);
   g_signal_connect_object (self->sound_settings,
                            "changed::allow-volume-above-100-percent",
@@ -313,12 +303,12 @@ cc_sound_panel_init (CcSoundPanel *self)
   allow_amplified_changed_cb (self);
 
   if (strstr (g_getenv("XDG_CURRENT_DESKTOP"), "ubuntu") != NULL) {
-    gtk_widget_set_visible(self->ubuntu_output_box, TRUE);
+    gtk_widget_set_visible(self->ubuntu_output_frame, TRUE);
     gtk_widget_set_visible(GTK_WIDGET (self->output_volume_slider), FALSE);
     g_settings_bind (self->sound_settings, "allow-volume-above-100-percent",
                      self->allow_amplify_switch, "active", G_SETTINGS_BIND_DEFAULT);
   } else {
-    gtk_widget_set_visible(self->ubuntu_output_box, FALSE);
+    gtk_widget_set_visible(self->ubuntu_output_frame, FALSE);
     gtk_widget_set_visible(GTK_WIDGET (self->output_volume_slider), TRUE);
   }
 

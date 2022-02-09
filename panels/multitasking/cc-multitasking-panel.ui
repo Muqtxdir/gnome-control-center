@@ -338,6 +338,57 @@
                   </object>
                 </child>
 
+                <child>
+                  <object class="GtkListBox" id="monitor_isolation_box">
+                    <property name="visible">False</property>
+                    <property name="can-focus">true</property>
+                    <property name="selection-mode">none</property>
+                    <property name="margin-bottom">18</property>
+
+                    <style>
+                      <class name="content"/>
+                    </style>
+
+                    <!-- All Monitors -->
+                    <child>
+                      <object class="CcMultitaskingRow">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="activatable-widget">dock_monitors_isolation_radio</property>
+                        <property name="title" translatable="yes">Include applications from all _monitors</property>
+                        <property name="use_underline">True</property>
+                        <child type="prefix">
+                          <object class="GtkRadioButton" id="dock_monitors_isolation_radio">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                    <!-- Monitor isolation -->
+                    <child>
+                      <object class="CcMultitaskingRow">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="activatable-widget">dock_each_monitor_radio</property>
+                        <property name="title" translatable="yes">Include applications from _each monitor only</property>
+                        <property name="use_underline">True</property>
+                        <child type="prefix">
+                          <object class="GtkRadioButton" id="dock_each_monitor_radio">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                            <property name="group">dock_monitors_isolation_radio</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+
+                  </object>
+                </child>
+
               </object>
             </child>
 
